@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import MovieCard from '../MovieCard';
 import useStyles from './styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { IconButton } from '@material-ui/core';
-import DataContext from '../store/Context';
+import { useDataContext } from './../store/Provider';
 
 const moviesPorPag = 5;
 
 const MovieList = ( { list } ) => {
     const styles = useStyles();
     const [ pag, setPag ] = useState( 0 );
-    const { baseUrl, backdropSizes } = useContext( DataContext );
+    const { baseUrl, backdropSizes } = useDataContext();
     // const [ imagesLoaded, setImagesLoaded ] = useState( false );
     // const [ countLoaded, setCountLoaded ] = useState( 0 );
     // const [ imgArray, setImgArray ] = useState( [] );

@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import useStyles from './styles';
 import { Button, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import DataContext from '../../store/Context';
+import { useDataContext } from './../../store/Provider';
 
 
 const MovieInfo = ( { movie, open, setStatus } ) => {
     const styles = useStyles();
-    const { baseUrl, backdropSizes } = useContext( DataContext );
+    const { baseUrl, backdropSizes } = useDataContext();
 
     function getImage () {
         return baseUrl + backdropSizes + movie.poster_path;

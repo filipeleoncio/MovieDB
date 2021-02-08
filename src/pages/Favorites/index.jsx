@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import MovieList from '../../components/MovieList';
-import DataContext from '../../components/store/Context';
+import { useDataContext } from './../../components/store/Provider';
 
 const Favorites = () => {
-    const { listaFavoritos } = useContext( DataContext );
+    const { listaFavoritos } = useDataContext();
 
     return (
         <>

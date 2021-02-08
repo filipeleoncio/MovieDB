@@ -32,7 +32,7 @@ const MainPage = () => {
         error: error,
     }
 
-    function handleChange ( event, newValue ) {
+    function handleChange ( _, newValue ) {
         setValue( newValue );
     };
 

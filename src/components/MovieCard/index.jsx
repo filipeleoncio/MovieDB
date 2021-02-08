@@ -1,13 +1,13 @@
 import { Card, CardContent, IconButton, Typography } from '@material-ui/core';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import StarButton from '../StarButton/indes';
-import DataContext from '../store/Context';
 import MovieInfo from './MovieInfo';
 import useStyles from './styles';
+import { useDataContext } from './../store/Provider';
 
 const MovieCard = ( { movie, img } ) => {
     const styles = useStyles();
-    const { listaFavoritos, setListaFavoritos } = useContext( DataContext );
+    const { listaFavoritos, setListaFavoritos } = useDataContext();
     const [ openModal, setOpenModal ] = useState( false );
 
     function toogleFavorito () {

@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import api from '../../services/api';
 import apiData from '../../services/apiData';
-import DataContext from './Context';
 import useStorage from '../../hooks/useStorage'
+
+const DataContext = createContext();
 
 const DataProvider = ( { children } ) => {
     const [ listaFavoritos, setListaFavoritos ] = useStorage( 'listaFavoritos' );
@@ -33,8 +34,6 @@ const DataProvider = ( { children } ) => {
         setListaFavoritos( [] );
     }, [ setListaFavoritos ] );
 
-
-
     return (
         <DataContext.Provider
             value={ {
@@ -48,6 +47,11 @@ const DataProvider = ( { children } ) => {
             {children }
         </DataContext.Provider>
     );
+}
+
+
+export const useDataContext = () => {
+    return useContext( DataContext );
 }
 
 export default DataProvider;
