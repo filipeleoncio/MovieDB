@@ -1,13 +1,15 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles( {
+const useStyles = makeStyles({
     root: {
-        width: '19.5%',
-        padding: 4,
+        maxWidth: '19.5%',
+        minWidth: '19.5%',
+        padding: 5,
         height: 330,
         backgroundColor: 'black',
         color: 'white ',
         overflow: 'visible',
+        cursor: 'pointer',
     },
     cardContent: {
         padding: 0,
@@ -40,7 +42,7 @@ const useStyles = makeStyles( {
     },
     botaoFavoritar: {
         color: 'white',
-    }
-} );
+    },
+});
 
 export default useStyles;
