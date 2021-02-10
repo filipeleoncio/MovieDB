@@ -38,7 +38,6 @@ const MovieList = ({ list, extPage, intPage, changePage }) => {
 
     useLayoutEffect(() => {
         scrollCarrousel(intPage);
-        console.log('page atual', intPage);
     }, [scrollCarrousel, intPage]);
 
     const lastStep = (list.length ? list.length / MOVIES_PER_STEP : 0) - 1;
@@ -55,8 +54,6 @@ const MovieList = ({ list, extPage, intPage, changePage }) => {
                         className={clsx(styles.pageButton, styles.nextButton)}
                         classes={{ disabled: styles.iconDisabled }}
                         aria-label='next'
-                        // onClick={() => setPage((p) => p + 1)}
-                        // onClick={() => doStep('next')}
                         onClick={() => changePage('next')}
                         disabled={isNextButtoDisable}
                     >
@@ -66,8 +63,6 @@ const MovieList = ({ list, extPage, intPage, changePage }) => {
                         className={clsx(styles.pageButton, styles.prevButton)}
                         classes={{ disabled: styles.iconDisabled }}
                         aria-label='prev'
-                        // onClick={() => setPage((p) => p - 1)}
-                        // onClick={() => doStep('prev')}
                         onClick={() => changePage('prev')}
                         disabled={isPrevButtoDisable}
                     >

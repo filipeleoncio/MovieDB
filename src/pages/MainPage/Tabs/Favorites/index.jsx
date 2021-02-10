@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import MovieList from '../../components/MovieList';
-import { useDataContext } from './../../components/store/Provider';
+import MovieList from '../../../../components/MovieList';
+import { useDataContext } from './../../../../components/store/Provider';
 
 const Favorites = () => {
     const { listaFavoritos } = useDataContext();

@@ -1,15 +1,15 @@
 import { Button, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import Popular from '../Popular';
-import TopRated from '../TopRated';
-import Trending from '../Trending';
+import Popular from './Tabs/Popular';
+import TopRated from './Tabs/TopRated';
+import Trending from './Tabs/Trending';
+import Favorites from './Tabs/Favorites';
 import useStyles from './styles';
 import TabItem from './TabItem';
 import StyledTab from './TabManager/StyledTab';
 import StyledTabs from './TabManager/StyledTabs';
 import SearchInput from '../../components/SearchInput';
-import Favorites from '../Favorites';
-import SearchResults from '../SearchResults';
+import SearchResults from './Tabs/SearchResults';
 import useFetch from '../../hooks/useFetch';
 import apiData from '../../services/apiData';
 
@@ -25,12 +25,13 @@ const MainPage = () => {
     const [value, setValue] = useState(0);
     const [searchedMovie, setSearchedMovie] = useState('');
     const [searchList, loading, error, fetchList] = useFetch();
-    // const [ page, setPage ] = useState( 1 );
-    const page = 1;
+    const [page, setPage] = useState(1);
+
     const searchListProps = {
         searchList: searchList,
         loading: loading,
         error: error,
+        setPage: setPage,
     };
 
     function handleChange(_, newValue) {

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import Error from '../../components/Error';
-import Loading from '../../components/Loading';
-import MovieList from '../../components/MovieList';
-import useFetch from '../../hooks/useFetch';
-import apiData from '../../services/apiData';
+import Error from '../../../../components/Error';
+import Loading from '../../../../components/Loading';
+import MovieList from '../../../../components/MovieList';
+import useFetch from '../../../../hooks/useFetch';
+import apiData from '../../../../services/apiData';
 import useStyles from './styles';
-import useChangePage from './../../hooks/useChangePage';
+import useChangePage from '../../../../hooks/useChangePage';
 
 const Trending = () => {
     const [mvList, mvloading, mvError, fetchMvList] = useFetch(apiData.trending('movie'));
