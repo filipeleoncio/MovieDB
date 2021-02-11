@@ -42,7 +42,7 @@ const MovieList = ({ list, extPage, intPage, changePage }) => {
 
     const lastStep = (list.length ? list.length / MOVIES_PER_STEP : 0) - 1;
 
-    const isNextButtoDisable = (intPage === lastStep && !extPage) || list.length < MOVIES_PER_STEP;
+    const isNextButtoDisable = (intPage >= lastStep && !extPage) || list.length < MOVIES_PER_STEP;
     const isPrevButtoDisable = (intPage === 0 && (extPage === 1 || !extPage)) || list.length < MOVIES_PER_STEP;
 
     if (list.length > 0) {

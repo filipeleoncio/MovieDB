@@ -4,7 +4,6 @@ import StarButton from '../StarButton/indes';
 import MovieInfo from './MovieInfo';
 import useStyles from './styles';
 import { useDataContext } from './../store/Provider';
-import clsx from 'clsx';
 
 const MovieCard = ({ movie, img }) => {
     const styles = useStyles();
@@ -43,10 +42,7 @@ const MovieCard = ({ movie, img }) => {
                         <p>Nota: {movie.vote_average}/10</p>
                         <p>Total de votos: {movie.vote_count}</p>
                     </div>
-                    <IconButton
-                        className={clsx(styles.botaoFavoritar, { [styles.selected]: isFilled() })}
-                        onClick={toogleFavorito}
-                    >
+                    <IconButton onClick={toogleFavorito}>
                         <StarButton filled={isFilled()} />
                     </IconButton>
                 </div>
