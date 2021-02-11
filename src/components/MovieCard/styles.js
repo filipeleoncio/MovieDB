@@ -9,7 +9,6 @@ const useStyles = makeStyles({
         backgroundColor: 'black',
         color: 'white ',
         overflow: 'visible',
-        cursor: 'pointer',
     },
     cardContent: {
         padding: 0,
@@ -28,6 +27,7 @@ const useStyles = makeStyles({
             width: '115%',
             zIndex: 1,
             alignSelf: 'center',
+            cursor: 'pointer',
         },
     },
     inferior: {

@@ -5,15 +5,16 @@ import TopRated from './Tabs/TopRated';
 import Trending from './Tabs/Trending';
 import Favorites from './Tabs/Favorites';
 import useStyles from './styles';
-import TabItem from './TabItem';
 import StyledTab from './TabManager/StyledTab';
 import StyledTabs from './TabManager/StyledTabs';
 import SearchInput from '../../components/SearchInput';
 import SearchResults from './Tabs/SearchResults';
 import useFetch from '../../hooks/useFetch';
 import apiData from '../../services/apiData';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import PATH_NAMES from './../../utils/pathNames';
 
-const tabIndex = {
+const TAB_INDEX = {
     TRENDING: 0,
     POPULAR: 1,
     TOP_RATED: 2,
@@ -28,9 +29,27 @@ function a11yProps(index) {
     };
 }
 
+function getTabValue(pathname) {
+    switch (pathname) {
+        case '/trending':
+            return TAB_INDEX.TRENDING;
+        case '/popular':
+            return TAB_INDEX.POPULAR;
+        case '/top-rated':
+            return TAB_INDEX.TOP_RATED;
+        case '/favorites':
+            return TAB_INDEX.FAVORITES;
+        case '/search':
+            return TAB_INDEX.TRENDING;
+        default:
+            return TAB_INDEX.TRENDING;
+    }
+}
+
 const MainPage = () => {
     const styles = useStyles();
-    const [value, setValue] = useState(0);
+    const history = useHistory();
+    const [value, setValue] = useState(getTabValue(history.location.pathname));
     const [searchedMovie, setSearchedMovie] = useState('');
     const [searchList, loading, error, fetchList] = useFetch();
     const [page, setPage] = useState(1);
@@ -47,18 +66,35 @@ const MainPage = () => {
     }
 
     function inputOnChange(event) {
-        if (value !== tabIndex.SEARCH) setValue(tabIndex.SEARCH);
+        if (value !== TAB_INDEX.SEARCH) setValue(TAB_INDEX.SEARCH);
         setSearchedMovie(event.target.value);
+        history.push(PATH_NAMES.search);
     }
 
     useEffect(() => {
         if (searchedMovie === '') {
-            setValue(tabIndex.TRENDING);
+            if (history.location.pathname === '/search') {
+                setValue(TAB_INDEX.TRENDING);
+                //goback-replace
+                history.push(PATH_NAMES.trending);
+            }
         } else {
             fetchList(apiData.searchMovie(searchedMovie, page));
         }
-    }, [page, fetchList, searchedMovie]);
+    }, [page, fetchList, searchedMovie, history]);
 
+    function redirect(path, newIndex) {
+        // if (path === PATH_NAMES.SEARCH) oldValue = value;
+        setValue(newIndex);
+        return history.push(path);
+    }
+
+    function defaultTab() {
+        const path = history.location.pathname;
+        console.log(history.location.pathname);
+        if (path === '/') return path;
+        return PATH_NAMES.trending;
+    }
     return (
         <>
             <div className={styles.pageHeader}>
@@ -69,28 +105,40 @@ const MainPage = () => {
 
             <div className={styles.tabs}>
                 <StyledTabs value={value} onChange={handleChange}>
-                    <StyledTab label='Trending' {...a11yProps(0)} />
-                    <StyledTab label='Popular' {...a11yProps(1)} />
-                    <StyledTab label='Top Rated' {...a11yProps(2)} />
-                    <StyledTab label='Favorites' {...a11yProps(3)} />
-                    <StyledTab label='Search' {...a11yProps(4)} disabled={searchedMovie === ''} />
+                    <StyledTab
+                        label='Trending'
+                        {...a11yProps(TAB_INDEX.TRENDING)}
+                        onClick={() => redirect('/trending', TAB_INDEX.TRENDING)}
+                    />
+                    <StyledTab
+                        label='Popular'
+                        {...a11yProps(TAB_INDEX.POPULAR)}
+                        onClick={() => redirect('/popular', TAB_INDEX.POPULAR)}
+                    />
+                    <StyledTab
+                        label='Top Rated'
+                        {...a11yProps(TAB_INDEX.TOP_RATED)}
+                        onClick={() => redirect('/top-rated', TAB_INDEX.TOP_RATED)}
+                    />
+                    <StyledTab
+                        label='Favorites'
+                        {...a11yProps(TAB_INDEX.FAVORITES)}
+                        onClick={() => redirect('/favorites', TAB_INDEX.FAVORITES)}
+                    />
+                    <StyledTab label='Search' {...a11yProps(TAB_INDEX.SEARCH)} disabled={searchedMovie === ''} />
                 </StyledTabs>
                 <Typography className={styles.padding} />
-                <TabItem value={value} index={tabIndex.TRENDING}>
-                    <Trending />
-                </TabItem>
-                <TabItem value={value} index={tabIndex.POPULAR}>
-                    <Popular />
-                </TabItem>
-                <TabItem value={value} index={tabIndex.TOP_RATED}>
-                    <TopRated />
-                </TabItem>
-                <TabItem value={value} index={tabIndex.FAVORITES}>
-                    <Favorites />
-                </TabItem>
-                <TabItem value={value} index={tabIndex.SEARCH}>
-                    <SearchResults searchListProps={searchListProps} />
-                </TabItem>
+                <div className={styles.tabContent}>
+                    <Switch>
+                        <Route path={defaultTab()} component={Trending} />
+                        <Route path={PATH_NAMES.popular} exact component={Popular} />
+                        <Route path={PATH_NAMES.topRated} exact component={TopRated} />
+                        <Route path={PATH_NAMES.favorites} exact component={Favorites} />
+                        <Route path={PATH_NAMES.search} exact>
+                            <SearchResults searchListProps={searchListProps} />
+                        </Route>
+                    </Switch>
+                </div>
             </div>
         </>
     );

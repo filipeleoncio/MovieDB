@@ -1,9 +1,11 @@
-const pathNames = {
+const PATH_NAMES = {
     start: '/',
     login: '/login',
     trending: '/trending',
     popular: '/popular',
-    topRated: '/topRated',
-}
+    topRated: '/top-rated',
+    favorites: '/favorites',
+    search: '/search',
+};
 
-export default pathNames;
+export default PATH_NAMES;

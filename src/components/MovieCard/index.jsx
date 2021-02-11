@@ -42,7 +42,7 @@ const MovieCard = ({ movie, img }) => {
                         <p>Nota: {movie.vote_average}/10</p>
                         <p>Total de votos: {movie.vote_count}</p>
                     </div>
-                    <IconButton onClick={toogleFavorito}>
+                    <IconButton onClick={toogleFavorito} title='Favoritar'>
                         <StarButton filled={isFilled()} />
                     </IconButton>
                 </div>

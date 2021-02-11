@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles( ( theme ) => ( {
+const useStyles = makeStyles((theme) => ({
     pageHeader: {
         display: 'flex',
         flexDirection: 'column',
@@ -26,8 +26,11 @@ const useStyles = makeStyles( ( theme ) => ( {
     tabs: {
         flexGrow: 1,
     },
+    tabContent: {
+        padding: 24,
+    },
     padding: {
-        padding: theme.spacing( 3 ),
+        padding: theme.spacing(3),
     },
     demo1: {
         backgroundColor: theme.palette.background.paper,
@@ -35,7 +38,6 @@ const useStyles = makeStyles( ( theme ) => ( {
     demo2: {
         backgroundColor: '#2e1534',
     },
-
-} ) );
+}));
 
 export default useStyles;
