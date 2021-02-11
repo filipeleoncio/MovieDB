@@ -13,6 +13,14 @@ import SearchResults from './Tabs/SearchResults';
 import useFetch from '../../hooks/useFetch';
 import apiData from '../../services/apiData';
 
+const tabIndex = {
+    TRENDING: 0,
+    POPULAR: 1,
+    TOP_RATED: 2,
+    FAVORITES: 3,
+    SEARCH: 4,
+};
+
 function a11yProps(index) {
     return {
         id: `scrollable-prevent-tab-${index}`,
@@ -39,13 +47,13 @@ const MainPage = () => {
     }
 
     function inputOnChange(event) {
-        if (value !== 4) setValue(4);
+        if (value !== tabIndex.SEARCH) setValue(tabIndex.SEARCH);
         setSearchedMovie(event.target.value);
     }
 
     useEffect(() => {
         if (searchedMovie === '') {
-            setValue(0);
+            setValue(tabIndex.TRENDING);
         } else {
             fetchList(apiData.searchMovie(searchedMovie, page));
         }
@@ -65,22 +73,22 @@ const MainPage = () => {
                     <StyledTab label='Popular' {...a11yProps(1)} />
                     <StyledTab label='Top Rated' {...a11yProps(2)} />
                     <StyledTab label='Favorites' {...a11yProps(3)} />
-                    <StyledTab label='Search' {...a11yProps(4)} />
+                    <StyledTab label='Search' {...a11yProps(4)} disabled={searchedMovie === ''} />
                 </StyledTabs>
                 <Typography className={styles.padding} />
-                <TabItem value={value} index={0}>
+                <TabItem value={value} index={tabIndex.TRENDING}>
                     <Trending />
                 </TabItem>
-                <TabItem value={value} index={1}>
+                <TabItem value={value} index={tabIndex.POPULAR}>
                     <Popular />
                 </TabItem>
-                <TabItem value={value} index={2}>
+                <TabItem value={value} index={tabIndex.TOP_RATED}>
                     <TopRated />
                 </TabItem>
-                <TabItem value={value} index={3}>
+                <TabItem value={value} index={tabIndex.FAVORITES}>
                     <Favorites />
                 </TabItem>
-                <TabItem value={value} index={4}>
+                <TabItem value={value} index={tabIndex.SEARCH}>
                     <SearchResults searchListProps={searchListProps} />
                 </TabItem>
             </div>
