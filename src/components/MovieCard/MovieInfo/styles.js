@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles( ( theme ) => ( {
+const useStyles = makeStyles((theme) => ({
     modal: {
         display: 'flex',
         alignItems: 'center',
@@ -9,8 +9,8 @@ const useStyles = makeStyles( ( theme ) => ( {
     },
     paper: {
         backgroundColor: '#212121',
-        boxShadow: theme.shadows[ 5 ],
-        padding: theme.spacing( 2, 0, 2, 0 ),
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 0, 2, 0),
         width: '65%',
         height: '90%',
         display: 'flex',
@@ -18,7 +18,7 @@ const useStyles = makeStyles( ( theme ) => ( {
         position: 'relative',
     },
     info: {
-        height: '90%',
+        height: '100%',
         width: '45%',
         paddingLeft: 20,
         display: 'flex',
@@ -26,7 +26,7 @@ const useStyles = makeStyles( ( theme ) => ( {
         justifyContent: 'space-between',
     },
     title: {
-        fontSize: 50,
+        fontSize: 40,
         // height: '20%',
         // fontSize: 'auto',
         fontFamily: theme.typography.fontFamily,
@@ -34,15 +34,25 @@ const useStyles = makeStyles( ( theme ) => ( {
     overview: {
         fontSize: 25,
         marginTop: 20,
+        color: 'gray',
     },
     bottom: {
         fontSize: 20,
         '& > p': {
-            margin: ' 0 auto ',
+            margin: '5px auto',
         },
     },
+    subInfo: {
+        fontSize: 20,
+        paddingRight: 30,
+    },
+    subInfoValue: {
+        fontSize: 17,
+        color: 'gray',
+        paddingLeft: 10,
+    },
     nota: {
-        fontSize: 14,
+        fontSize: 19,
         '& > p': {
             margin: ' 0 auto ',
         },
@@ -57,9 +67,8 @@ const useStyles = makeStyles( ( theme ) => ( {
         fontSize: '2.5rem',
     },
     image: {
-        height: '90%',
-    }
-
-} ) );
+        height: '100%',
+    },
+}));
 
 export default useStyles;

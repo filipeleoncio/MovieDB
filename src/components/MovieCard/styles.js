@@ -43,6 +43,9 @@ const useStyles = makeStyles({
     botaoFavoritar: {
         color: 'white',
     },
+    selected: {
+        color: 'yellow',
+    },
 });
 
 export default useStyles;

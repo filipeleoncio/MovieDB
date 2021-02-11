@@ -10,7 +10,8 @@ import useChangePage from '../../../../hooks/useChangePage';
 const Trending = () => {
     const [mvList, mvloading, mvError, fetchMvList] = useFetch(apiData.trending('movie'));
     const [tvList, tvLoading, tvError, fetchTvList] = useFetch(apiData.trending('tv'));
-    const [extPage, intPage, changePage] = useChangePage();
+    const [, mvIntPage, mvChangePage] = useChangePage();
+    const [, tvIntPage, tvChangePage] = useChangePage();
     const styles = useStyles();
 
     useEffect(() => {
@@ -34,9 +35,9 @@ const Trending = () => {
                 <>
                     <h1>Trending</h1>
                     <h2>Movies</h2>
-                    <MovieList list={mvList} intPage={intPage} changePage={changePage} />
+                    <MovieList list={mvList} intPage={mvIntPage} changePage={mvChangePage} />
                     <h2>TV Shows</h2>
-                    <MovieList list={tvList} intPage={intPage} changePage={changePage} />
+                    <MovieList list={tvList} intPage={tvIntPage} changePage={tvChangePage} />
                 </>
             )}
         </div>
