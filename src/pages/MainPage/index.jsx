@@ -125,12 +125,17 @@ const MainPage = () => {
                         {...a11yProps(TAB_INDEX.FAVORITES)}
                         onClick={() => redirect('/favorites', TAB_INDEX.FAVORITES)}
                     />
-                    <StyledTab label='Search' {...a11yProps(TAB_INDEX.SEARCH)} disabled={searchedMovie === ''} />
+                    <StyledTab
+                        label='Search'
+                        {...a11yProps(TAB_INDEX.SEARCH)}
+                        disabled={searchedMovie === ''}
+                        onClick={() => redirect('/search', TAB_INDEX.SEARCH)}
+                    />
                 </StyledTabs>
                 <Typography className={styles.padding} />
                 <div className={styles.tabContent}>
                     <Switch>
-                        <Route path={defaultTab()} component={Trending} />
+                        <Route path={defaultTab()} exact component={Trending} />
                         <Route path={PATH_NAMES.popular} exact component={Popular} />
                         <Route path={PATH_NAMES.topRated} exact component={TopRated} />
                         <Route path={PATH_NAMES.favorites} exact component={Favorites} />
