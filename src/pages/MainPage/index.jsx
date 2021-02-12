@@ -91,7 +91,6 @@ const MainPage = () => {
 
     function defaultTab() {
         const path = history.location.pathname;
-        console.log(history.location.pathname);
         if (path === '/') return path;
         return PATH_NAMES.trending;
     }

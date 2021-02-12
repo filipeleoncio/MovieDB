@@ -9,10 +9,15 @@ import { useDataContext } from './../../store/Provider';
 
 const MovieInfo = ({ movie, open, setStatus }) => {
     const styles = useStyles();
-    const { baseUrl, backdropSizes } = useDataContext();
+    const { baseUrl, backdropSizes, genres } = useDataContext();
 
     function getImage() {
         return baseUrl + backdropSizes + movie.poster_path;
+    }
+
+    function getGenre(id) {
+        const genre = genres.find((genre) => genre.id === id);
+        if (genre) return genre.name;
     }
 
     return (
@@ -42,7 +47,10 @@ const MovieInfo = ({ movie, open, setStatus }) => {
                                 Genre:
                                 <span className={styles.subInfoValue}>
                                     {movie.genre_ids.map((genre, index) => (
-                                        <span key={index}> {genre}</span>
+                                        <span key={index}>
+                                            {index > 0 ? ', ' : null}
+                                            {getGenre(genre)}
+                                        </span>
                                     ))}
                                 </span>
                             </p>

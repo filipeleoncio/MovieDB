@@ -8,6 +8,7 @@ const DataContext = createContext();
 const DataProvider = ({ children }) => {
     const [listaFavoritos, setListaFavoritos] = useStorage('listaFavoritos');
     const [configuration, setConfiguration] = useState(null);
+    const [genres, setGenres] = useState([]);
     const backdropSizes = 'original';
 
     if (!listaFavoritos) setListaFavoritos([]);
@@ -27,9 +28,21 @@ const DataProvider = ({ children }) => {
         }
     }, []);
 
+    const getGenres = useCallback(async () => {
+        try {
+            const res = await api.get(apiData.genres);
+            setGenres(res.data.genres);
+        } catch (err) {
+            const error = 'Erro app -> getGenres; Erro: ' + err;
+            console.log(error);
+            throw err;
+        }
+    }, []);
+
     useEffect(() => {
         getConfiguration();
-    }, [getConfiguration]);
+        getGenres();
+    }, [getConfiguration, getGenres]);
 
     return (
         <DataContext.Provider
@@ -37,6 +50,7 @@ const DataProvider = ({ children }) => {
                 configuration,
                 baseUrl,
                 backdropSizes,
+                genres,
                 listaFavoritos,
                 setListaFavoritos,
             }}
