@@ -6,6 +6,7 @@ import useStyles from './styles';
 import { Button, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { useDataContext } from './../../store/Provider';
+import Nota from './Nota';
 
 const MovieInfo = ({ movie, open, setStatus }) => {
     const styles = useStyles();
@@ -64,10 +65,7 @@ const MovieInfo = ({ movie, open, setStatus }) => {
                                 Popularity:<span className={styles.subInfoValue}> {movie.popularity}</span>
                             </p>
                         </div>
-                        <div className={styles.nota}>
-                            <p>Nota: {movie.vote_average}/10</p>
-                            <p>Total de votos: {movie.vote_count}</p>
-                        </div>
+                        <Nota className={styles.nota} movie={movie} />
                     </div>
                 </div>
             </Fade>

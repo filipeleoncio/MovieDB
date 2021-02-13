@@ -51,12 +51,6 @@ const useStyles = makeStyles((theme) => ({
         color: 'gray',
         paddingLeft: 10,
     },
-    nota: {
-        fontSize: 19,
-        '& > p': {
-            margin: ' 0 auto ',
-        },
-    },
     closeButton: {
         height: '50%',
         position: 'absolute',
@@ -65,9 +59,14 @@ const useStyles = makeStyles((theme) => ({
     },
     iconSize: {
         fontSize: '2.5rem',
+        color: 'gray',
     },
     image: {
         height: '100%',
+    },
+    nota: {
+        width: '200',
+        height: 'auto',
     },
 }));
 
