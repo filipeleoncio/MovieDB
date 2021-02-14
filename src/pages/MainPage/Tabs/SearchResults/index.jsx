@@ -7,7 +7,7 @@ import useChangePage from './../../../../hooks/useChangePage';
 
 const SearchResults = ({ searchListProps }) => {
     const { searchList, loading, error, setPage } = searchListProps;
-    const [extPage, intPage, changePage] = useChangePage();
+    const { extPage, intPage, changePage } = useChangePage();
     const styles = useStyles();
 
     function showError() {

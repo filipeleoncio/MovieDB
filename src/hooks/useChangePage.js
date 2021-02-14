@@ -26,7 +26,7 @@ function useChangePage() {
         }
     };
 
-    return [extPage, intPage, changePage];
+    return { extPage, intPage, changePage };
 }
 
 export default useChangePage;

@@ -6,12 +6,14 @@ import useFetch from '../../../../hooks/useFetch';
 import apiData from '../../../../services/apiData';
 import useStyles from './styles';
 import useChangePage from '../../../../hooks/useChangePage';
+// import { useImageContext } from '../../../../components/store/ImageProvider';
 
 const Trending = () => {
     const [mvList, mvloading, mvError, fetchMvList] = useFetch(apiData.trending('movie'));
     const [tvList, tvLoading, tvError, fetchTvList] = useFetch(apiData.trending('tv'));
-    const [, mvIntPage, mvChangePage] = useChangePage();
-    const [, tvIntPage, tvChangePage] = useChangePage();
+    const { intPage: mvIntPage, changePage: mvChangePage } = useChangePage();
+    const { intPage: tvIntPage, changePage: tvChangePage } = useChangePage();
+    // const { allImagesLoaded } = useImageContext();
     const styles = useStyles();
 
     useEffect(() => {
@@ -19,13 +21,27 @@ const Trending = () => {
         fetchTvList(apiData.trending('tv'));
     }, [fetchMvList, fetchTvList]);
 
+    // useEffect(() => {
+    //     console.log(allImagesLoaded ? 'allImagesLoaded' : 'allImagesLoading');
+    // }, [allImagesLoaded]);
+
     function isLoading() {
+        // console.log('loading');
         return mvloading || tvLoading;
     }
 
     function hasError() {
         return mvError || tvError;
     }
+
+    useEffect(() => {
+        ///precache images
+        //so liberar dps q todas as imagens do component loadarem na cache
+    }, [mvList]);
+
+    useEffect(() => {
+        ///precache images
+    }, [tvList]);
 
     return (
         <div className={styles.root}>

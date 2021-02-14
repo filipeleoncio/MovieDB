@@ -9,7 +9,7 @@ import useChangePage from '../../../../hooks/useChangePage';
 
 const TopRated = () => {
     const [movieList, loading, error, fetchMovies] = useFetch();
-    const [extPage, intPage, changePage] = useChangePage();
+    const { extPage, intPage, changePage } = useChangePage();
     const styles = useStyles();
 
     useEffect(() => {
