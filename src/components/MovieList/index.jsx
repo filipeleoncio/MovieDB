@@ -1,29 +1,26 @@
-import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useLayoutEffect, useEffect, useMemo, useRef, useState } from 'react';
 import MovieCard from '../MovieCard';
 import useStyles from './styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { IconButton } from '@material-ui/core';
-// import { useDataContext } from './../store/Provider';
 import clsx from 'clsx';
-// import { useImageContext } from '../store/ImageProvider';
 
 // const MOVIES_PER_PAGE = 20;
 const MOVIES_PER_STEP = 5;
 // const MOVIES_RENDER_PER_STEP = 15;
 
-const MovieList = ({ list, extPage, intPage, changePage }) => {
+const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) => {
     const styles = useStyles();
-    // const [loadedImagesCount, setLoadedImagesCount] = useState(0);
+    const [loadedImagesCount, setLoadedImagesCount] = useState(0);
     const carrouselRef = useRef();
-    // const { setAllImagesLoaded } = useImageContext();
 
-    // const debounceSetLoaded = debounce(() => setAllImagesLoaded(true), 2000);
-
-    // useEffect(() => {
-    //     console.log('loadedImages:', loadedImagesCount);
-    //     debounceSetLoaded();
-    // }, [loadedImagesCount, debounceSetLoaded]);
+    useEffect(() => {
+        if (loadedImagesCount === list.length && list.length > 0) {
+            console.log(loadedImagesCount + ' loaded');
+            setAllImagesLoaded(true);
+        }
+    }, [loadedImagesCount, list, setAllImagesLoaded]);
 
     // const listaExibida = useMemo(() => {
     //     let inicial = page * moviesPorPag;
@@ -31,13 +28,11 @@ const MovieList = ({ list, extPage, intPage, changePage }) => {
     //     return list.slice(inicial, final);
     // }, [page, list]);
 
-    // const MovieCardList = useMemo(
-    //     () =>
-    //         list.map((movie, index) => <MovieCard key={index} movie={movie} setLoadedImages={setLoadedImagesCount} />),
-    //     [list, setLoadedImagesCount],
-    // );
-
-    const MovieCardList = useMemo(() => list.map((movie, index) => <MovieCard key={index} movie={movie} />), [list]);
+    const MovieCardList = useMemo(
+        () =>
+            list.map((movie, index) => <MovieCard key={index} movie={movie} setLoadedImages={setLoadedImagesCount} />),
+        [list, setLoadedImagesCount],
+    );
 
     const scrollCarrousel = useCallback((_page) => {
         if (carrouselRef.current) {
@@ -55,29 +50,59 @@ const MovieList = ({ list, extPage, intPage, changePage }) => {
     const isNextButtoDisable = (intPage >= lastStep && !extPage) || list.length < MOVIES_PER_STEP;
     const isPrevButtoDisable = (intPage === 0 && (extPage === 1 || !extPage)) || list.length < MOVIES_PER_STEP;
 
-    return (
-        <div className={styles.root} ref={carrouselRef}>
-            {MovieCardList}
-            <IconButton
-                className={clsx(styles.pageButton, styles.nextButton)}
-                classes={{ disabled: styles.iconDisabled }}
-                aria-label='next'
-                onClick={() => changePage('next')}
-                disabled={isNextButtoDisable}
-            >
-                <ArrowForwardIosIcon className={styles.iconSize} />
-            </IconButton>
-            <IconButton
-                className={clsx(styles.pageButton, styles.prevButton)}
-                classes={{ disabled: styles.iconDisabled }}
-                aria-label='prev'
-                onClick={() => changePage('prev')}
-                disabled={isPrevButtoDisable}
-            >
-                <ArrowBackIosIcon className={styles.iconSize} />
-            </IconButton>
-        </div>
+    const MovieListMemo = useMemo(
+        () => (
+            <div className={styles.root} ref={carrouselRef}>
+                {console.log('movielistRenderizado')}
+                {MovieCardList}
+                <IconButton
+                    className={clsx(styles.pageButton, styles.nextButton)}
+                    classes={{ disabled: styles.iconDisabled }}
+                    aria-label='next'
+                    onClick={() => changePage('next')}
+                    disabled={isNextButtoDisable}
+                >
+                    <ArrowForwardIosIcon className={styles.iconSize} />
+                </IconButton>
+                <IconButton
+                    className={clsx(styles.pageButton, styles.prevButton)}
+                    classes={{ disabled: styles.iconDisabled }}
+                    aria-label='prev'
+                    onClick={() => changePage('prev')}
+                    disabled={isPrevButtoDisable}
+                >
+                    <ArrowBackIosIcon className={styles.iconSize} />
+                </IconButton>
+            </div>
+        ),
+        [MovieCardList, changePage, isNextButtoDisable, isPrevButtoDisable, styles],
     );
+
+    // return (
+    //     <div className={styles.root} ref={carrouselRef}>
+    //         {console.log('movielistRenderizado')}
+    //         {MovieCardList}
+    //         <IconButton
+    //             className={clsx(styles.pageButton, styles.nextButton)}
+    //             classes={{ disabled: styles.iconDisabled }}
+    //             aria-label='next'
+    //             onClick={() => changePage('next')}
+    //             disabled={isNextButtoDisable}
+    //         >
+    //             <ArrowForwardIosIcon className={styles.iconSize} />
+    //         </IconButton>
+    //         <IconButton
+    //             className={clsx(styles.pageButton, styles.prevButton)}
+    //             classes={{ disabled: styles.iconDisabled }}
+    //             aria-label='prev'
+    //             onClick={() => changePage('prev')}
+    //             disabled={isPrevButtoDisable}
+    //         >
+    //             <ArrowBackIosIcon className={styles.iconSize} />
+    //         </IconButton>
+    //     </div>
+    // );
+    return <>{MovieListMemo}</>;
 };
 
 export default MovieList;

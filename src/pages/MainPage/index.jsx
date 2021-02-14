@@ -13,7 +13,6 @@ import useFetch from '../../hooks/useFetch';
 import apiData from '../../services/apiData';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import PATH_NAMES from './../../utils/pathNames';
-// import ImageProvider from '../../components/store/ImageProvider';
 
 const TAB_INDEX = {
     TRENDING: 0,
@@ -134,7 +133,6 @@ const MainPage = () => {
                 </StyledTabs>
                 <Typography className={styles.padding} />
                 <div className={styles.tabContent}>
-                    {/* <ImageProvider> */}
                     <Switch>
                         <Route path={defaultTab()} exact component={Trending} />
                         <Route path={PATH_NAMES.popular} exact component={Popular} />
@@ -144,7 +142,6 @@ const MainPage = () => {
                             <SearchResults searchListProps={searchListProps} />
                         </Route>
                     </Switch>
-                    {/* </ImageProvider> */}
                 </div>
             </div>
         </>

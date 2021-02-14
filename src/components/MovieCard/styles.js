@@ -43,13 +43,6 @@ const useStyles = makeStyles({
     botaoFavoritar: {
         color: 'white',
     },
-    smoothImage: {
-        transition: '.5s ease-in-out opacity',
-        opacity: 0,
-    },
-    smoothImageLoaded: {
-        opacity: 1,
-    },
 });
 
 export default useStyles;

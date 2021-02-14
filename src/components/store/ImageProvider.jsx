@@ -3,13 +3,13 @@ import React, { createContext, useContext, useState } from 'react';
 const ImageContext = createContext();
 
 const ImageProvider = ({ children }) => {
-    const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+    const [countImagesLoaded, setCountImagesLoaded] = useState(0);
 
     return (
         <ImageContext.Provider
             value={{
-                allImagesLoaded,
-                setAllImagesLoaded,
+                countImagesLoaded,
+                setCountImagesLoaded,
             }}
         >
             {children}

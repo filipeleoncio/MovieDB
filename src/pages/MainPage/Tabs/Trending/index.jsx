@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Error from '../../../../components/Error';
 import Loading from '../../../../components/Loading';
 import MovieList from '../../../../components/MovieList';
@@ -6,14 +6,17 @@ import useFetch from '../../../../hooks/useFetch';
 import apiData from '../../../../services/apiData';
 import useStyles from './styles';
 import useChangePage from '../../../../hooks/useChangePage';
-// import { useImageContext } from '../../../../components/store/ImageProvider';
+import clsx from 'clsx';
 
 const Trending = () => {
     const [mvList, mvloading, mvError, fetchMvList] = useFetch(apiData.trending('movie'));
     const [tvList, tvLoading, tvError, fetchTvList] = useFetch(apiData.trending('tv'));
     const { intPage: mvIntPage, changePage: mvChangePage } = useChangePage();
     const { intPage: tvIntPage, changePage: tvChangePage } = useChangePage();
-    // const { allImagesLoaded } = useImageContext();
+
+    const [mvListAllLoaded, setMvListAllLoaded] = useState(false);
+    const [tvListAllLoaded, setTvListAllLoaded] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
     const styles = useStyles();
 
     useEffect(() => {
@@ -21,12 +24,16 @@ const Trending = () => {
         fetchTvList(apiData.trending('tv'));
     }, [fetchMvList, fetchTvList]);
 
-    // useEffect(() => {
-    //     console.log(allImagesLoaded ? 'allImagesLoaded' : 'allImagesLoading');
-    // }, [allImagesLoaded]);
+    useEffect(() => {
+        if (mvListAllLoaded) console.log('mv loaded');
+        if (tvListAllLoaded) console.log('tv loaded');
+        if (mvListAllLoaded && tvListAllLoaded) {
+            console.log('all images loaded');
+            setImagesLoaded(true);
+        }
+    }, [mvListAllLoaded, tvListAllLoaded]);
 
     function isLoading() {
-        // console.log('loading');
         return mvloading || tvLoading;
     }
 
@@ -34,28 +41,31 @@ const Trending = () => {
         return mvError || tvError;
     }
 
-    useEffect(() => {
-        ///precache images
-        //so liberar dps q todas as imagens do component loadarem na cache
-    }, [mvList]);
-
-    useEffect(() => {
-        ///precache images
-    }, [tvList]);
-
     return (
         <div className={styles.root}>
             {isLoading() && <Loading />}
             {!isLoading() && hasError() && <Error Message={mvError || tvError} />}
-            {!isLoading() && !hasError() && (
-                <>
-                    <h1>Trending</h1>
-                    <h2>Movies</h2>
-                    <MovieList list={mvList} intPage={mvIntPage} changePage={mvChangePage} />
-                    <h2>TV Shows</h2>
-                    <MovieList list={tvList} intPage={tvIntPage} changePage={tvChangePage} />
-                </>
-            )}
+            <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: imagesLoaded })}>
+                {!isLoading() && !hasError() && (
+                    <>
+                        <h1>Trending</h1>
+                        <h2>Movies</h2>
+                        <MovieList
+                            list={mvList}
+                            intPage={mvIntPage}
+                            changePage={mvChangePage}
+                            setAllImagesLoaded={setMvListAllLoaded}
+                        />
+                        <h2>TV Shows</h2>
+                        <MovieList
+                            list={tvList}
+                            intPage={tvIntPage}
+                            changePage={tvChangePage}
+                            setAllImagesLoaded={setTvListAllLoaded}
+                        />
+                    </>
+                )}
+            </div>
         </div>
     );
 };

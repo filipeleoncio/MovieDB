@@ -4,11 +4,9 @@ import StarButton from '../StarButton/indes';
 import MovieInfo from './MovieInfo';
 import useStyles from './styles';
 import { useDataContext } from './../store/Provider';
-import clsx from 'clsx';
 // import Nota from './MovieInfo/Nota';
 
-// const MovieCard = ({ movie, setLoadedImages }) => {
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, setLoadedImages }) => {
     const styles = useStyles();
     const { listaFavoritos, setListaFavoritos } = useDataContext();
     const [openModal, setOpenModal] = useState(false);
@@ -18,9 +16,11 @@ const MovieCard = ({ movie }) => {
 
     useEffect(() => {
         console.log(imgLoaded ? 'loaded' : 'loading');
-        // if (imgLoaded) setLoadedImages((prev) => prev + 1);
-        // }, [imgLoaded, setLoadedImages]);
-    }, [imgLoaded]);
+        if (imgLoaded) {
+            setLoadedImages((prev) => prev + 1);
+        }
+    }, [imgLoaded, setLoadedImages]);
+    // }, [imgLoaded]);
 
     function toogleFavorito() {
         const favorito = listaFavoritos.some((mov) => mov.id === movie.id);
@@ -49,11 +49,12 @@ const MovieCard = ({ movie }) => {
                 <Typography className={styles.title}>{movie.title || movie.name}</Typography>
                 {baseUrl && backdropSizes && (
                     <img
-                        className={clsx(styles.image, styles.smoothImage, { [styles.smoothImageLoaded]: imgLoaded })}
+                        className={styles.image}
                         src={src}
                         alt={`${movie.original_title}_img`}
                         onClick={setModal}
                         onLoad={() => setImgLoaded(true)}
+                        onError={() => setImgLoaded(true)}
                     />
                 )}
                 <MovieInfo movie={movie} open={openModal} setStatus={setModal} />
