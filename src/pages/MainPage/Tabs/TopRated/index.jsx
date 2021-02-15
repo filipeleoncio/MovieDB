@@ -18,9 +18,11 @@ const TopRated = () => {
         fetchMovies(apiData.topRated(extPage));
     }, [extPage, fetchMovies]);
 
+    useEffect(() => setListAllLoaded(false), [extPage]);
+
     return (
         <div className={styles.root}>
-            {loading && <Loading />}
+            {(loading || !listAllLoaded) && <Loading />}
             {error && <Error Message={error} />}
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: listAllLoaded })}>
                 {!loading && !error && (

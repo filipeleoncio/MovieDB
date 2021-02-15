@@ -20,9 +20,11 @@ const SearchResults = ({ searchListProps }) => {
         setPage(extPage);
     }, [extPage, setPage]);
 
+    useEffect(() => setListAllLoaded(false), [extPage]);
+
     return (
         <div className={styles.root}>
-            {loading && <Loading />}
+            {(loading || !listAllLoaded) && <Loading />}
             {showError() && <Error Message={'Filme não encontrado'} />}
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: listAllLoaded })}>
                 {!loading && !showError() && (

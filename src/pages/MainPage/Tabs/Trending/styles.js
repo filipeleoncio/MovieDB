@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
-        height: 600,
+        height: 800,
         position: 'relative',
     },
     tabTitle: {
