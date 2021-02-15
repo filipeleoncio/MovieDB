@@ -3,31 +3,35 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     pageHeader: {
         display: 'flex',
-        flexDirection: 'column',
+        height: 65,
+        justifyContent: 'space-between',
+        position: 'relative',
+        // flexDirection: 'column',
         alignItems: 'center',
     },
     pageTitle: {
+        // justifySelf: 'flex-start',
         // textAlign: 'center',
         fontFamily: 'Garamond',
-        fontSize: '3rem',
+        fontSize: '2.3rem',
     },
     loginButton: {
-        position: 'absolute',
+        // justifySelf: 'flex-end',
+        // position: 'absolute',
         color: 'white',
-        top: 20,
-        right: 10,
+        // top: 20,
+        // right: 10,
         // display: 'flex',
-        justifySelf: 'center',
-        // alignSelf: 'center',
+        // justifySelf: 'center',
+        alignSelf: 'flex-start',
         fontSize: '1rem',
         fontFamily: 'Serif',
     },
-
     tabs: {
         flexGrow: 1,
     },
     tabContent: {
-        padding: 24,
+        padding: '0px 24px',
     },
     padding: {
         padding: theme.spacing(3),

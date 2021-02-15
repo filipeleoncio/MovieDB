@@ -1,12 +1,14 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles( {
+const useStyles = makeStyles({
     root: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-    }
-} )
+        // display: 'flex',
+        position: 'absolute',
+        top: 300,
+        // top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    },
+});
 
 export default useStyles;

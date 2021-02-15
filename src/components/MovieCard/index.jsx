@@ -15,12 +15,10 @@ const MovieCard = ({ movie, setLoadedImages }) => {
     const [imgLoaded, setImgLoaded] = useState(false);
 
     useEffect(() => {
-        console.log(imgLoaded ? 'loaded' : 'loading');
         if (imgLoaded) {
             setLoadedImages((prev) => prev + 1);
         }
     }, [imgLoaded, setLoadedImages]);
-    // }, [imgLoaded]);
 
     function toogleFavorito() {
         const favorito = listaFavoritos.some((mov) => mov.id === movie.id);

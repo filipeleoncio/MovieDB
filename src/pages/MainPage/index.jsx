@@ -1,4 +1,4 @@
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Popular from './Tabs/Popular';
 import TopRated from './Tabs/TopRated';
@@ -98,8 +98,8 @@ const MainPage = () => {
         <>
             <div className={styles.pageHeader}>
                 <h1 className={styles.pageTitle}>Movies DB</h1>
-                <Button className={styles.loginButton}>Login</Button>
                 <SearchInput onChange={inputOnChange} />
+                <Button className={styles.loginButton}>Login</Button>
             </div>
 
             <div className={styles.tabs}>
@@ -131,7 +131,7 @@ const MainPage = () => {
                         onClick={() => redirect('/search', TAB_INDEX.SEARCH)}
                     />
                 </StyledTabs>
-                <Typography className={styles.padding} />
+                {/* <Typography className={styles.padding} /> */}
                 <div className={styles.tabContent}>
                     <Switch>
                         <Route path={defaultTab()} exact component={Trending} />

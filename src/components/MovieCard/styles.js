@@ -5,7 +5,7 @@ const useStyles = makeStyles({
         maxWidth: '19.5%',
         minWidth: '19.5%',
         padding: 5,
-        height: 330,
+        height: 310,
         backgroundColor: 'black',
         color: 'white ',
         overflow: 'visible',
@@ -13,12 +13,13 @@ const useStyles = makeStyles({
     cardContent: {
         padding: 0,
         height: '100%',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
     },
     title: {
-        fontSize: 16,
+        fontSize: 15,
         height: '10%',
     },
     image: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
     },
     inferior: {
         display: 'flex',
+        height: '13%',
         justifyContent: 'space-between',
     },
     nota: {

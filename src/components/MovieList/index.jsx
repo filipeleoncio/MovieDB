@@ -17,7 +17,6 @@ const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) =
 
     useEffect(() => {
         if (loadedImagesCount === list.length && list.length > 0) {
-            console.log(loadedImagesCount + ' loaded');
             setAllImagesLoaded(true);
         }
     }, [loadedImagesCount, list, setAllImagesLoaded]);
@@ -53,7 +52,6 @@ const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) =
     const MovieListMemo = useMemo(
         () => (
             <div className={styles.root} ref={carrouselRef}>
-                {console.log('movielistRenderizado')}
                 {MovieCardList}
                 <IconButton
                     className={clsx(styles.pageButton, styles.nextButton)}
@@ -78,30 +76,6 @@ const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) =
         [MovieCardList, changePage, isNextButtoDisable, isPrevButtoDisable, styles],
     );
 
-    // return (
-    //     <div className={styles.root} ref={carrouselRef}>
-    //         {console.log('movielistRenderizado')}
-    //         {MovieCardList}
-    //         <IconButton
-    //             className={clsx(styles.pageButton, styles.nextButton)}
-    //             classes={{ disabled: styles.iconDisabled }}
-    //             aria-label='next'
-    //             onClick={() => changePage('next')}
-    //             disabled={isNextButtoDisable}
-    //         >
-    //             <ArrowForwardIosIcon className={styles.iconSize} />
-    //         </IconButton>
-    //         <IconButton
-    //             className={clsx(styles.pageButton, styles.prevButton)}
-    //             classes={{ disabled: styles.iconDisabled }}
-    //             aria-label='prev'
-    //             onClick={() => changePage('prev')}
-    //             disabled={isPrevButtoDisable}
-    //         >
-    //             <ArrowBackIosIcon className={styles.iconSize} />
-    //         </IconButton>
-    //     </div>
-    // );
     return <>{MovieListMemo}</>;
 };
 
