@@ -7,7 +7,6 @@ function buildQueryParams(parmsJson) {
 }
 
 const apiData = {
-    teste: (value1, value2) => console.log(buildQueryParams({ value1: value1, value2: value2 })),
     trending: (mediaType) => `/trending/${mediaType}/${timeWindow}?${buildQueryParams({ api_key: key })}`,
     latest: `/movie/latest?${buildQueryParams({ api_key: key, language: language })}`,
     popular: (page) => `/movie/popular?${buildQueryParams({ api_key: key, language: language, page: page })}`,

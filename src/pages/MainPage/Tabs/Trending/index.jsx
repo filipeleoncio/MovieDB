@@ -7,6 +7,7 @@ import apiData from '../../../../services/apiData';
 import useStyles from './styles';
 import useChangePage from '../../../../hooks/useChangePage';
 import clsx from 'clsx';
+import SwitchButton from './SwitchButton';
 
 const Trending = () => {
     const [mvList, mvloading, mvError, fetchMvList] = useFetch(apiData.trending('movie'));
@@ -19,19 +20,24 @@ const Trending = () => {
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const styles = useStyles();
 
+    const [selected, setSelected] = useState('movie');
+
     useEffect(() => {
         fetchMvList(apiData.trending('movie'));
         fetchTvList(apiData.trending('tv'));
     }, [fetchMvList, fetchTvList]);
 
     useEffect(() => {
-        if (mvListAllLoaded) console.log('mv loaded');
-        if (tvListAllLoaded) console.log('tv loaded');
-        if (mvListAllLoaded && tvListAllLoaded) {
-            console.log('all images loaded');
+        if (selected === 'movie') {
+            setMvListAllLoaded(false);
+        }
+        if (selected === 'tv') {
+            setTvListAllLoaded(false);
+        }
+        if ((selected === 'movie' && mvListAllLoaded) || (selected === 'tv' && tvListAllLoaded)) {
             setImagesLoaded(true);
         }
-    }, [mvListAllLoaded, tvListAllLoaded]);
+    }, [mvListAllLoaded, tvListAllLoaded, selected, imagesLoaded]);
 
     function isLoading() {
         return mvloading || tvLoading;
@@ -43,26 +49,37 @@ const Trending = () => {
 
     return (
         <div className={styles.root}>
-            {isLoading() && <Loading />}
+            {(isLoading() || !imagesLoaded) && <Loading />}
             {!isLoading() && hasError() && <Error Message={mvError || tvError} />}
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: imagesLoaded })}>
                 {!isLoading() && !hasError() && (
                     <>
-                        <h1>Trending</h1>
-                        <h2>Movies</h2>
-                        <MovieList
-                            list={mvList}
-                            intPage={mvIntPage}
-                            changePage={mvChangePage}
-                            setAllImagesLoaded={setMvListAllLoaded}
-                        />
-                        <h2>TV Shows</h2>
-                        <MovieList
-                            list={tvList}
-                            intPage={tvIntPage}
-                            changePage={tvChangePage}
-                            setAllImagesLoaded={setTvListAllLoaded}
-                        />
+                        <div className={styles.tabTitle}>
+                            <h1>Trending</h1>
+                            <SwitchButton value={selected} setValue={setSelected} setImagesLoaded={setImagesLoaded} />
+                        </div>
+                        {selected === 'movie' && (
+                            <>
+                                <h2>Movies</h2>
+                                <MovieList
+                                    list={mvList}
+                                    intPage={mvIntPage}
+                                    changePage={mvChangePage}
+                                    setAllImagesLoaded={setMvListAllLoaded}
+                                />
+                            </>
+                        )}
+                        {selected === 'tv' && (
+                            <>
+                                <h2>TV Shows</h2>
+                                <MovieList
+                                    list={tvList}
+                                    intPage={tvIntPage}
+                                    changePage={tvChangePage}
+                                    setAllImagesLoaded={setTvListAllLoaded}
+                                />
+                            </>
+                        )}
                     </>
                 )}
             </div>
