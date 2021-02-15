@@ -24,10 +24,11 @@ const useStyles = makeStyles({
     },
     image: {
         width: '100%',
+        transition: '.2s ease-in-out width',
+        alignSelf: 'center',
         '&:hover': {
             width: '115%',
             zIndex: 1,
-            alignSelf: 'center',
             cursor: 'pointer',
         },
     },
@@ -41,9 +42,6 @@ const useStyles = makeStyles({
         '& > p': {
             margin: ' 0 auto ',
         },
-    },
-    botaoFavoritar: {
-        color: 'white',
     },
 });
 
