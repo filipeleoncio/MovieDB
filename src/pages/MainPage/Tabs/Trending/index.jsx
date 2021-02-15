@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Error from '../../../../components/Error';
 import Loading from '../../../../components/Loading';
 import MovieList from '../../../../components/MovieList';
@@ -10,8 +10,8 @@ import clsx from 'clsx';
 import SwitchButton from './SwitchButton';
 
 const Trending = () => {
-    const [mvList, mvloading, mvError, fetchMvList] = useFetch(apiData.trending('movie'));
-    const [tvList, tvLoading, tvError, fetchTvList] = useFetch(apiData.trending('tv'));
+    const [mvList, mvloading, mvError, fetchMvList] = useFetch();
+    const [tvList, tvLoading, tvError, fetchTvList] = useFetch();
     const { intPage: mvIntPage, changePage: mvChangePage } = useChangePage();
     const { intPage: tvIntPage, changePage: tvChangePage } = useChangePage();
 
@@ -19,6 +19,8 @@ const Trending = () => {
     const [tvListAllLoaded, setTvListAllLoaded] = useState(false);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const styles = useStyles();
+
+    const firstRender = useRef(false);
 
     const [selected, setSelected] = useState('movie');
 
@@ -35,6 +37,7 @@ const Trending = () => {
             setTvListAllLoaded(false);
         }
         if ((selected === 'movie' && mvListAllLoaded) || (selected === 'tv' && tvListAllLoaded)) {
+            firstRender.current = true;
             setImagesLoaded(true);
         }
     }, [mvListAllLoaded, tvListAllLoaded, selected, imagesLoaded]);
@@ -51,13 +54,17 @@ const Trending = () => {
         <div className={styles.root}>
             {(isLoading() || !imagesLoaded) && <Loading />}
             {!isLoading() && hasError() && <Error Message={mvError || tvError} />}
-            <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: imagesLoaded })}>
-                {!isLoading() && !hasError() && (
-                    <>
-                        <div className={styles.tabTitle}>
-                            <h1>Trending</h1>
-                            <SwitchButton value={selected} setValue={setSelected} setImagesLoaded={setImagesLoaded} />
-                        </div>
+            {!isLoading() && !hasError() && (
+                <>
+                    <div
+                        className={clsx(styles.tabTitle, styles.smoothComponent, {
+                            [styles.smoothComponentLoaded]: firstRender.current,
+                        })}
+                    >
+                        <h1>Trending</h1>
+                        <SwitchButton value={selected} setValue={setSelected} setImagesLoaded={setImagesLoaded} />
+                    </div>
+                    <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: imagesLoaded })}>
                         {selected === 'movie' && (
                             <>
                                 <h2>Movies</h2>
@@ -80,9 +87,9 @@ const Trending = () => {
                                 />
                             </>
                         )}
-                    </>
-                )}
-            </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
