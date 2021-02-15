@@ -6,19 +6,33 @@ import useStyles from './styles';
 import { useDataContext } from './../store/Provider';
 // import Nota from './MovieInfo/Nota';
 
-const MovieCard = ({ movie, setLoadedImages }) => {
+const MovieCard = ({ movie, setLoadedImages, index, setMinimumLoaded }) => {
     const styles = useStyles();
     const { listaFavoritos, setListaFavoritos } = useDataContext();
     const [openModal, setOpenModal] = useState(false);
-    const { baseUrl, backdropSizes } = useDataContext();
+    const { baseUrl, smallBackdropSize: backdropSizes } = useDataContext();
     const src = baseUrl + backdropSizes + movie.backdrop_path;
     const [imgLoaded, setImgLoaded] = useState(false);
+
+    function accepted(_index) {
+        switch (_index) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                return true;
+            default:
+                return false;
+        }
+    }
 
     useEffect(() => {
         if (imgLoaded) {
             setLoadedImages((prev) => prev + 1);
+            if (accepted(index)) setMinimumLoaded((prev) => prev + 1);
         }
-    }, [imgLoaded, setLoadedImages]);
+    }, [imgLoaded, setLoadedImages, setMinimumLoaded, index]);
 
     function toogleFavorito() {
         const favorito = listaFavoritos.some((mov) => mov.id === movie.id);

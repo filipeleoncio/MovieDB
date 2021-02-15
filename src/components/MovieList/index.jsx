@@ -13,13 +13,19 @@ const MOVIES_PER_STEP = 5;
 const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) => {
     const styles = useStyles();
     const [loadedImagesCount, setLoadedImagesCount] = useState(0);
+    const [minimumLoaded, setMinimumLoaded] = useState(0);
     const carrouselRef = useRef();
 
+    const condition1 = loadedImagesCount === list.length && list.length > 0;
+    const condition2 = minimumLoaded === 5;
+
+    const result = condition1 || condition2;
+
     useEffect(() => {
-        if (loadedImagesCount === list.length && list.length > 0) {
+        if (result) {
             setAllImagesLoaded(true);
         }
-    }, [loadedImagesCount, list, setAllImagesLoaded]);
+    }, [result, list, setAllImagesLoaded]);
 
     // const listaExibida = useMemo(() => {
     //     let inicial = page * moviesPorPag;
@@ -29,7 +35,15 @@ const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) =
 
     const MovieCardList = useMemo(
         () =>
-            list.map((movie, index) => <MovieCard key={index} movie={movie} setLoadedImages={setLoadedImagesCount} />),
+            list.map((movie, index) => (
+                <MovieCard
+                    key={index}
+                    index={index}
+                    movie={movie}
+                    setLoadedImages={setLoadedImagesCount}
+                    setMinimumLoaded={setMinimumLoaded}
+                />
+            )),
         [list, setLoadedImagesCount],
     );
 
