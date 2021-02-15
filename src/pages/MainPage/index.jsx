@@ -131,7 +131,6 @@ const MainPage = () => {
                         onClick={() => redirect('/search', TAB_INDEX.SEARCH)}
                     />
                 </StyledTabs>
-                {/* <Typography className={styles.padding} /> */}
                 <div className={styles.tabContent}>
                     <Switch>
                         <Route path={defaultTab()} exact component={Trending} />

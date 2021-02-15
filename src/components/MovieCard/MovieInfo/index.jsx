@@ -10,7 +10,7 @@ import Nota from './Nota';
 
 const MovieInfo = ({ movie, open, setStatus }) => {
     const styles = useStyles();
-    const { baseUrl, backdropSizes, genres } = useDataContext();
+    const { baseUrl, originalBackdropSize: backdropSizes, genres } = useDataContext();
 
     function getImage() {
         return baseUrl + backdropSizes + movie.poster_path;

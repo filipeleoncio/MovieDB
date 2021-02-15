@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
         color: 'inherit',
     },
     inputInput: {
-        justifyContent: 'center',
+        // justifyContent: 'center',
         padding: theme.spacing(1, 1, 1, 1),
         transition: theme.transitions.create('width'),
-        width: '100%',
+        // width: '100%',
         [theme.breakpoints.up('sm')]: {
             width: '12ch',
             '&:focus': {

@@ -9,13 +9,32 @@ const DataProvider = ({ children }) => {
     const [listaFavoritos, setListaFavoritos] = useStorage('listaFavoritos');
     const [configuration, setConfiguration] = useState(null);
     const [genres, setGenres] = useState([]);
-    const backdropSizes = 'original';
 
     if (!listaFavoritos) setListaFavoritos([]);
 
     const baseUrl = useMemo(() => {
         return configuration ? configuration.data.images.base_url : null;
     }, [configuration]);
+
+    const backdropSizes = useMemo(() => {
+        return configuration ? configuration.data.images.backdrop_sizes : null;
+    }, [configuration]);
+
+    const smallBackdropSize = useMemo(() => {
+        return backdropSizes ? backdropSizes[0] : null;
+    }, [backdropSizes]);
+
+    const mediumBackdropSize = useMemo(() => {
+        return backdropSizes ? backdropSizes[1] : null;
+    }, [backdropSizes]);
+
+    const largeBackdropSize = useMemo(() => {
+        return backdropSizes ? backdropSizes[2] : null;
+    }, [backdropSizes]);
+
+    const originalBackdropSize = useMemo(() => {
+        return backdropSizes ? backdropSizes[3] : null;
+    }, [backdropSizes]);
 
     const getConfiguration = useCallback(async () => {
         try {
@@ -49,7 +68,10 @@ const DataProvider = ({ children }) => {
             value={{
                 configuration,
                 baseUrl,
-                backdropSizes,
+                smallBackdropSize,
+                mediumBackdropSize,
+                largeBackdropSize,
+                originalBackdropSize,
                 genres,
                 listaFavoritos,
                 setListaFavoritos,
