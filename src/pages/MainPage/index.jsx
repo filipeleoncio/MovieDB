@@ -66,9 +66,15 @@ const MainPage = () => {
     }
 
     function inputOnChange(event) {
-        if (value !== TAB_INDEX.SEARCH) setValue(TAB_INDEX.SEARCH);
         setSearchedMovie(event.target.value);
-        history.push(PATH_NAMES.search);
+        if (event.target.value !== '') {
+            if (value !== TAB_INDEX.SEARCH) setValue(TAB_INDEX.SEARCH);
+            history.push(PATH_NAMES.search);
+        }
+    }
+
+    function inputClean() {
+        setSearchedMovie('');
     }
 
     useEffect(() => {
@@ -94,11 +100,12 @@ const MainPage = () => {
         if (path === '/') return path;
         return PATH_NAMES.trending;
     }
+
     return (
         <>
             <div className={styles.pageHeader}>
-                <h1 className={styles.pageTitle}>Movies DB</h1>
-                <SearchInput onChange={inputOnChange} />
+                <h1 className={styles.pageTitle}>Movie DB</h1>
+                <SearchInput onChange={inputOnChange} onCleanClick={inputClean} />
                 <Button className={styles.loginButton}>Login</Button>
             </div>
 

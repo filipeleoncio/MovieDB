@@ -44,7 +44,7 @@ const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) =
                     setMinimumLoaded={setMinimumLoaded}
                 />
             )),
-        [list, setLoadedImagesCount],
+        [list],
     );
 
     const scrollCarrousel = useCallback((_page) => {

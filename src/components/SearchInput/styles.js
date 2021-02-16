@@ -25,6 +25,18 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'center',
         pointerEvents: 'none',
     },
+    cleanButton: {
+        marginTop: 3,
+        position: 'relative',
+        alignSelf: 'center',
+        opacity: 0,
+    },
+    cleanButtonShow: {
+        right: 7,
+        transition: '.5s ease-in-out opacity',
+        opacity: 1,
+        cursor: 'pointer',
+    },
     inputRoot: {
         color: 'inherit',
     },
@@ -34,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create('width'),
         // width: '100%',
         [theme.breakpoints.up('sm')]: {
-            width: '12ch',
+            width: '10ch',
             '&:focus': {
-                width: '20ch',
+                width: '18ch',
             },
         },
     },
