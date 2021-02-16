@@ -72,8 +72,13 @@ const MovieCard = ({ movie, setLoadedImages, index, setMinimumLoaded }) => {
                 <MovieInfo movie={movie} open={openModal} setStatus={setModal} />
                 <div className={styles.inferior}>
                     <div className={styles.nota}>
-                        <p>Nota: {movie.vote_average}/10</p>
-                        <p>Total de votos: {movie.vote_count}</p>
+                        <p>
+                            Nota:
+                            <span className={styles.inferiorValue}>{movie.vote_average}/10</span>
+                        </p>
+                        <p>
+                            Total de votos:<span className={styles.inferiorValue}>{movie.vote_count}</span>
+                        </p>
                     </div>
                     {/* <Nota movie={movie} /> */}
                     <IconButton onClick={toogleFavorito} title='Favoritar'>
