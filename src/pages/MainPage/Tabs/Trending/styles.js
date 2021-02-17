@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     },
     tabTitle: {
         display: 'flex',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
     },
     smoothComponent: {
         opacity: 0,
