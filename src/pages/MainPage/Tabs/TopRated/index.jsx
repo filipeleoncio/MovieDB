@@ -27,7 +27,7 @@ const TopRated = () => {
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: listAllLoaded })}>
                 {!loading && !error && (
                     <>
-                        <h1>TopRated Movies</h1>
+                        <h1>Top Rated Movies</h1>
                         <MovieList
                             list={movieList}
                             extPage={extPage}

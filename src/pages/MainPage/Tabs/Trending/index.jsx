@@ -67,7 +67,6 @@ const Trending = () => {
                     <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: imagesLoaded })}>
                         {selected === 'movie' && (
                             <>
-                                <h2>Movies</h2>
                                 <MovieList
                                     list={mvList}
                                     intPage={mvIntPage}
@@ -78,7 +77,6 @@ const Trending = () => {
                         )}
                         {selected === 'tv' && (
                             <>
-                                <h2>TV Shows</h2>
                                 <MovieList
                                     list={tvList}
                                     intPage={tvIntPage}

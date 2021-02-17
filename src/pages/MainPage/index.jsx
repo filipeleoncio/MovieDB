@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Popular from './Tabs/Popular';
 import TopRated from './Tabs/TopRated';
@@ -138,6 +138,7 @@ const MainPage = () => {
                         onClick={() => redirect('/search', TAB_INDEX.SEARCH)}
                     />
                 </StyledTabs>
+                <Typography className={styles.padding} />
                 <div className={styles.tabContent}>
                     <Switch>
                         <Route path={defaultTab()} exact component={Trending} />

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     pageHeader: {
         display: 'flex',
-        height: 65,
+        height: 110,
         justifyContent: 'space-between',
         position: 'relative',
         // flexDirection: 'column',
@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     pageTitle: {
         // justifySelf: 'flex-start',
         // textAlign: 'center',
+        paddingLeft: 20,
         fontFamily: 'Garamond',
         fontSize: '2.3rem',
     },
@@ -36,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
     padding: {
         padding: theme.spacing(3),
     },
-    demo1: {
-        backgroundColor: theme.palette.background.paper,
-    },
-    demo2: {
-        backgroundColor: '#2e1534',
-    },
+    // demo1: {
+    //     backgroundColor: theme.palette.background.paper,
+    // },
+    // demo2: {
+    //     backgroundColor: '#2e1534',
+    // },
 }));
 
 export default useStyles;

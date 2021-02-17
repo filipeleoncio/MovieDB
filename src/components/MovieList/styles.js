@@ -4,9 +4,9 @@ const useStyles = makeStyles({
     root: {
         display: 'flex',
         width: '100%',
-        // flexWrap: 'wrap',
         scrollBehavior: 'smooth',
         overflow: 'hidden',
+        paddingTop: 50,
     },
     pageButton: {
         position: 'absolute',
