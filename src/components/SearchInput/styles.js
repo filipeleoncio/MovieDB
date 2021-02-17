@@ -30,10 +30,10 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         alignSelf: 'center',
         opacity: 0,
-    },
-    cleanButtonShow: {
         right: 7,
         transition: '.5s ease-in-out opacity',
+    },
+    cleanButtonShow: {
         opacity: 1,
         cursor: 'pointer',
     },

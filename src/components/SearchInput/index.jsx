@@ -36,7 +36,10 @@ const SearchInput = ({ onChange, onCleanClick }) => {
                 inputProps={{ 'aria-label': 'search' }}
                 value={value}
             />
-            <div className={clsx(styles.cleanButton, { [styles.cleanButtonShow]: value !== '' })}>
+            <div
+                className={clsx(styles.cleanButton, { [styles.cleanButtonShow]: value !== '' })}
+                title={value !== '' ? 'Limpar' : null}
+            >
                 <CloseIcon onClick={cleanInput} />
             </div>
         </div>
