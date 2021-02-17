@@ -60,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
     iconSize: {
         fontSize: '2.5rem',
         color: 'gray',
+        transition: '.3s ease-in-out color',
+        '&:hover': {
+            color: 'white',
+        },
     },
     image: {
         height: '100%',

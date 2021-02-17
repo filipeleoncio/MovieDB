@@ -16,9 +16,13 @@ const MovieInfo = ({ movie, open, setStatus }) => {
         return baseUrl + backdropSizes + movie.poster_path;
     }
 
-    function getGenre(id) {
-        const genre = genres.find((genre) => genre.id === id);
-        if (genre) return genre.name;
+    function getValidGenres(movie) {
+        let validGenres = [];
+        movie.genre_ids.forEach((id) => {
+            let genre = genres.find((genre) => genre.id === id);
+            if (genre) validGenres.push(genre.name);
+        });
+        return validGenres;
     }
 
     return (
@@ -36,7 +40,7 @@ const MovieInfo = ({ movie, open, setStatus }) => {
                 <div className={styles.paper}>
                     <img className={styles.image} src={getImage()} alt={`${movie.original_title}_img`} />
                     <div className={styles.info}>
-                        <div className={styles.closeButton}>
+                        <div className={styles.closeButton} title='Fechar'>
                             <Button onClick={setStatus}>
                                 <CloseIcon className={styles.iconSize} />
                             </Button>
@@ -47,10 +51,10 @@ const MovieInfo = ({ movie, open, setStatus }) => {
                             <p>
                                 Genre:
                                 <span className={styles.subInfoValue}>
-                                    {movie.genre_ids.map((genre, index) => (
+                                    {getValidGenres(movie).map((genreName, index) => (
                                         <span key={index}>
                                             {index > 0 ? ', ' : null}
-                                            {getGenre(genre)}
+                                            {genreName}
                                         </span>
                                     ))}
                                 </span>
