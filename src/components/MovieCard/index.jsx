@@ -63,7 +63,7 @@ const MovieCard = ({ movie, setLoadedImages, index, setMinimumLoaded }) => {
                     <img
                         className={styles.image}
                         src={src}
-                        alt={`${movie.original_title}_img`}
+                        alt={`${movie.title || movie.name}_img`}
                         onClick={setModal}
                         onLoad={() => setImgLoaded(true)}
                         onError={() => setImgLoaded(true)}

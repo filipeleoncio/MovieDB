@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -7,10 +7,40 @@ import { Button, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { useDataContext } from './../../store/Provider';
 import Nota from './Nota';
+import useFetch from '../../../hooks/useFetch';
+import apiData from '../../../services/apiData';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const MovieInfo = ({ movie, open, setStatus }) => {
     const styles = useStyles();
     const { baseUrl, originalBackdropSize: backdropSizes, genres } = useDataContext();
+    const [videoList, loading, error, fetchVideos] = useFetch();
+    const [displayVideo, setDisplayVideo] = useState(false);
+    // const [providersBR, setProvidersBR] = useState(null);
+
+    // useEffect(() => {
+    //     console.log('br:', providersBR);
+    //     if (open && !providersBR) {
+    //         console.log('open:', providerList);
+    //         fetchProviders(apiData.whatchProviders(movie.id));
+    //         if (providerList.BR) {
+    //             setProvidersBR(providerList.BR);
+    //         }
+    //     }
+    // }, [fetchProviders, providerList, providersBR, movie, open]);
+
+    useEffect(() => {
+        if (open && videoList.length === 0 && loading) {
+            if (movie.media_type) {
+                console.log(movie.media_type);
+                fetchVideos(apiData.videos(movie.media_type, movie.id));
+            } else {
+                console.log('no type');
+                fetchVideos(apiData.videos('movie', movie.id));
+            }
+        }
+        console.log(videoList);
+    }, [fetchVideos, videoList, movie, open, loading]);
 
     function getImage() {
         return baseUrl + backdropSizes + movie.poster_path;
@@ -25,6 +55,18 @@ const MovieInfo = ({ movie, open, setStatus }) => {
         return validGenres;
     }
 
+    const getTrailerKey = useCallback(() => {
+        if (videoList.length > 0) {
+            const videoKey = videoList.find((video) => video.type === 'Trailer').key;
+            return videoKey ? videoKey : videoList[0].key;
+        }
+        return null;
+    }, [videoList]);
+
+    function toogleTrailerModal() {
+        setDisplayVideo((prev) => !prev);
+    }
+
     return (
         <Modal
             className={styles.modal}
@@ -36,9 +78,9 @@ const MovieInfo = ({ movie, open, setStatus }) => {
                 timeout: 500,
             }}
         >
-            <Fade in={open}>
+            <Fade in={open} timeout={{ enter: 500, exit: 300 }}>
                 <div className={styles.paper}>
-                    <img className={styles.image} src={getImage()} alt={`${movie.original_title}_img`} />
+                    <img className={styles.image} src={getImage()} alt={`${movie.title || movie.name}_img`} />
                     <div className={styles.info}>
                         <div className={styles.closeButton} title='Fechar'>
                             <Button onClick={setStatus}>
@@ -69,7 +111,41 @@ const MovieInfo = ({ movie, open, setStatus }) => {
                                 Popularity:<span className={styles.subInfoValue}> {movie.popularity}</span>
                             </p>
                         </div>
-                        <Nota className={styles.nota} movie={movie} />
+                        <div className={styles.footer}>
+                            <Nota className={styles.nota} movie={movie} />
+                            {videoList.length > 0 && (
+                                <Button
+                                    className={styles.playTrailerButton}
+                                    onClick={toogleTrailerModal}
+                                    title='Assistir Trailer'
+                                >
+                                    <PlayArrowIcon className={styles.playTrailerIcon} />
+                                    <Typography className={styles.playTrailerText}>trailer</Typography>
+                                </Button>
+                            )}
+                        </div>
+                        <Modal
+                            open={displayVideo}
+                            onClose={toogleTrailerModal}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                transitionDuration: 500,
+                                classes: { root: styles.trailerBackdrop },
+                            }}
+                        >
+                            <Fade in={displayVideo} timeout={{ enter: 300, exit: 300 }}>
+                                <div className={styles.videoBox}>
+                                    <iframe
+                                        title={getTrailerKey()}
+                                        allowFullScreen='allowfullscreen'
+                                        className={styles.videoFrame}
+                                        src={`https://www.youtube.com/embed/${getTrailerKey()}`}
+                                        frameBorder='0'
+                                    />
+                                </div>
+                            </Fade>
+                        </Modal>
                     </div>
                 </div>
             </Fade>

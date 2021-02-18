@@ -8,7 +8,7 @@ const useStyles = makeStyles({
         width: '125px',
     },
     star: {
-        paddingTop: '11px',
+        // paddingTop: '11px',
         paddingRight: '3px',
         color: 'gold',
     },
@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     values: {
         display: 'inline-flex',
         flexDirection: 'column',
+        paddingBottom: 8,
     },
     superior: {
         display: 'inline-flex',

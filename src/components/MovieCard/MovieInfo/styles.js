@@ -16,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
+        outline: 'none',
     },
     info: {
         height: '100%',
-        width: '45%',
+        width: '52%',
         paddingLeft: 20,
         display: 'flex',
         flexDirection: 'column',
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontSize: 40,
+        textAlign: 'center',
         // height: '20%',
         // fontSize: 'auto',
         fontFamily: theme.typography.fontFamily,
@@ -41,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
         '& > p': {
             margin: '5px auto',
         },
+    },
+    footer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     subInfo: {
         fontSize: 20,
@@ -71,6 +78,54 @@ const useStyles = makeStyles((theme) => ({
     nota: {
         width: '200',
         height: 'auto',
+    },
+    trailerBackdrop: {
+        backgroundColor: 'rgb(0 0 0 / 90%)',
+    },
+    videoBox: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: '75vw',
+        height: 'calc(75vw/16*9)',
+        transform: 'translate(-50%, -50%)',
+        outline: 'none',
+    },
+    videoFrame: {
+        width: '100%',
+        height: '100%',
+    },
+    playTrailerButton: {
+        width: '22%',
+        height: '70%',
+        marginRight: 20,
+        display: 'flex',
+        alignItems: 'center',
+        borderRadius: 30,
+        border: '1px solid white',
+        color: 'white',
+        transition: '.3s ease-in-out background-color, .3s ease-in-out border-color',
+        '&:hover': {
+            color: 'white',
+            backgroundColor: 'red',
+            borderColor: 'red',
+            '& $playTrailerIcon': {
+                // color: 'red',
+            },
+        },
+    },
+    playTrailerIcon: {
+        padding: 0,
+        fontSize: '3.0rem',
+        marginLeft: -18,
+        // paddingRight: 10,
+        // color: 'white',
+        // transition: '.3s ease-in-out color',
+    },
+    playTrailerText: {
+        fontSize: 15,
+        marginRight: -10,
+        paddingLeft: 5,
     },
 }));
 

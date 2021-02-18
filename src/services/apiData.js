@@ -15,6 +15,8 @@ const apiData = {
     searchMovie: (movie, page) => `/search/movie?${buildQueryParams({ api_key: key, query: movie, page: page })}`,
     config: `/configuration?${buildQueryParams({ api_key: key })}`,
     genres: `/genre/movie/list?${buildQueryParams({ api_key: key, language: language })}`,
+    videos: (type, id) => `/${type}/${id}/videos?${buildQueryParams({ api_key: key, language: language })}`,
+    whatchProviders: (movieId) => `/movie/${movieId}/watch/providers?${buildQueryParams({ api_key: key })}`,
 };
 
 export default apiData;
