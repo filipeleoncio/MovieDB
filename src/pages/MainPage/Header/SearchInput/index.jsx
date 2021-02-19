@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import useStyles from './styles';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
@@ -8,15 +8,25 @@ import clsx from 'clsx';
 
 const SearchInput = ({ onChange, onCleanClick }) => {
     const styles = useStyles();
+    const inputRef = useRef();
 
-    const debounceOnChange = debounce(onChange, 300);
+    // const debounceOnChange = useCallback(debounce(onChange, 3000), [onChange]);
+
+    // const inputOnChange = useCallback(
+    //     (event) => {
+    //         debounce(onChange, 3000)(event);
+    //     },
+    //     [onChange],
+    // );
 
     function getInputValue() {
-        return document.getElementById('inputField') ? document.getElementById('inputField').value : '';
+        console.log(inputRef);
+        const inputField = inputRef.current;
+        return inputField ? inputField.value : '';
     }
 
     function cleanInput() {
-        document.getElementById('inputField').value = '';
+        if (inputRef.current) inputRef.current.value = '';
         onCleanClick();
     }
 
@@ -26,9 +36,10 @@ const SearchInput = ({ onChange, onCleanClick }) => {
                 <SearchIcon />
             </div>
             <InputBase
+                inputRef={inputRef}
                 id='inputField'
                 placeholder='Search movie'
-                onChange={debounceOnChange}
+                onChange={debounce(onChange, 300)}
                 classes={{
                     root: styles.inputRoot,
                     input: styles.inputInput,
