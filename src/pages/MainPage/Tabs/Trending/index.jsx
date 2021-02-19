@@ -51,8 +51,8 @@ const Trending = () => {
     }
 
     return (
-        <div className={styles.root}>
-            {(isLoading() || !imagesLoaded) && <Loading />}
+        <>
+            {(isLoading() || !imagesLoaded) && !hasError() && <Loading />}
             {!isLoading() && hasError() && <Error Message={mvError || tvError} />}
             {!isLoading() && !hasError() && (
                 <>
@@ -66,29 +66,25 @@ const Trending = () => {
                     </div>
                     <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: imagesLoaded })}>
                         {selected === 'movie' && (
-                            <>
-                                <MovieList
-                                    list={mvList}
-                                    intPage={mvIntPage}
-                                    changePage={mvChangePage}
-                                    setAllImagesLoaded={setMvListAllLoaded}
-                                />
-                            </>
+                            <MovieList
+                                list={mvList}
+                                intPage={mvIntPage}
+                                changePage={mvChangePage}
+                                setAllImagesLoaded={setMvListAllLoaded}
+                            />
                         )}
                         {selected === 'tv' && (
-                            <>
-                                <MovieList
-                                    list={tvList}
-                                    intPage={tvIntPage}
-                                    changePage={tvChangePage}
-                                    setAllImagesLoaded={setTvListAllLoaded}
-                                />
-                            </>
+                            <MovieList
+                                list={tvList}
+                                intPage={tvIntPage}
+                                changePage={tvChangePage}
+                                setAllImagesLoaded={setTvListAllLoaded}
+                            />
                         )}
                     </div>
                 </>
             )}
-        </div>
+        </>
     );
 };
 

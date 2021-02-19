@@ -23,9 +23,9 @@ const SearchResults = ({ searchListProps }) => {
     useEffect(() => setListAllLoaded(false), [extPage]);
 
     return (
-        <div className={styles.root}>
-            {(loading || !listAllLoaded) && <Loading />}
-            {showError() && <Error Message={'Filme não encontrado'} />}
+        <>
+            {(loading || !listAllLoaded) && !showError() && <Loading />}
+            {showError() && <Error Message={'Movie not found'} />}
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: listAllLoaded })}>
                 {!loading && !showError() && (
                     <>
@@ -40,7 +40,7 @@ const SearchResults = ({ searchListProps }) => {
                     </>
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

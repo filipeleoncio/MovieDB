@@ -21,8 +21,8 @@ const TopRated = () => {
     useEffect(() => setListAllLoaded(false), [extPage]);
 
     return (
-        <div className={styles.root}>
-            {(loading || !listAllLoaded) && <Loading />}
+        <>
+            {(loading || !listAllLoaded) && !error && <Loading />}
             {error && <Error Message={error} />}
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: listAllLoaded })}>
                 {!loading && !error && (
@@ -38,7 +38,7 @@ const TopRated = () => {
                     </>
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

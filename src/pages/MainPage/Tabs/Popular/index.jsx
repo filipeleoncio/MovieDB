@@ -21,12 +21,12 @@ const Popular = () => {
     useEffect(() => setListAllLoaded(false), [extPage]);
 
     return (
-        <div className={styles.root}>
-            {(loading || !listAllLoaded) && <Loading />}
+        <>
+            {(loading || !listAllLoaded) && !error && <Loading />}
             {error && <Error Message={error} />}
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: listAllLoaded })}>
                 {!loading && !error && (
-                    <div>
+                    <>
                         <h1>Popular Movies</h1>
                         <MovieList
                             list={movieList}
@@ -35,10 +35,10 @@ const Popular = () => {
                             changePage={changePage}
                             setAllImagesLoaded={setListAllLoaded}
                         />
-                    </div>
+                    </>
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

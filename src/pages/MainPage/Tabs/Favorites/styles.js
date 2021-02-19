@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
-    root: {
-        // height: 600,
-    },
     smoothComponent: {
         opacity: 0,
         transition: '.5s ease-in-out opacity',
