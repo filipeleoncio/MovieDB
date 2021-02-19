@@ -12,7 +12,7 @@ const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) =
     const [minimumLoaded, setMinimumLoaded] = useState(0);
     const carrouselRef = useRef();
 
-    const condition = minimumLoaded === 5;
+    const condition = minimumLoaded === 5 || minimumLoaded === list.length;
 
     useEffect(() => {
         if (condition) {
