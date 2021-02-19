@@ -11,16 +11,12 @@ function useFetch() {
             setLoading(true);
             const { data } = await api.get(Request);
             if (data) {
-                // setTimeout( () => {
                 setLoading(false);
-                // }, 1000 );
                 setRes(data);
             }
         } catch (e) {
-            // setTimeout( () => {
             setLoading(false);
-            setError('Falha ao acessar a lista');
-            // }, 1000 );
+            setError('Failed to access the list');
         }
     }, []);
 
