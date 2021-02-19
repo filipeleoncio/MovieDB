@@ -27,7 +27,7 @@ const SearchInput = ({ onChange, onCleanClick }) => {
     // const delayedQuery = useCallback(() => debounce((q) => sendQuery(q), 500), [sendQuery]);
 
     function getInputValue() {
-        return document.getElementById('inputField') ? document.getElementById('inputField').value : null;
+        return document.getElementById('inputField') ? document.getElementById('inputField').value : '';
     }
 
     function cleanInput() {
@@ -43,7 +43,7 @@ const SearchInput = ({ onChange, onCleanClick }) => {
             </div>
             <InputBase
                 id='inputField'
-                placeholder='Buscar filme'
+                placeholder='Search movie'
                 // onChange={inputOnChange}
                 onChange={debounceOnChange}
                 classes={{

@@ -1,4 +1,4 @@
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Popular from './Tabs/Popular';
 import TopRated from './Tabs/TopRated';
@@ -7,20 +7,13 @@ import Favorites from './Tabs/Favorites';
 import useStyles from './styles';
 import StyledTab from './TabManager/StyledTab';
 import StyledTabs from './TabManager/StyledTabs';
-import SearchInput from '../../components/SearchInput';
 import SearchResults from './Tabs/SearchResults';
 import useFetch from '../../hooks/useFetch';
 import apiData from '../../services/apiData';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import PATH_NAMES from './../../utils/pathNames';
-
-const TAB_INDEX = {
-    TRENDING: 0,
-    POPULAR: 1,
-    TOP_RATED: 2,
-    FAVORITES: 3,
-    SEARCH: 4,
-};
+import TAB_INDEX from '../../utils/tabIndex';
+import Header from './Header';
 
 function a11yProps(index) {
     return {
@@ -31,15 +24,15 @@ function a11yProps(index) {
 
 function getTabValue(pathname) {
     switch (pathname) {
-        case '/trending':
+        case PATH_NAMES.TRENDING:
             return TAB_INDEX.TRENDING;
-        case '/popular':
+        case PATH_NAMES.POPULAR:
             return TAB_INDEX.POPULAR;
-        case '/top-rated':
+        case PATH_NAMES.TOP_RATED:
             return TAB_INDEX.TOP_RATED;
-        case '/favorites':
+        case PATH_NAMES.FAVORITES:
             return TAB_INDEX.FAVORITES;
-        case '/search':
+        case PATH_NAMES.SEARCH:
             return TAB_INDEX.TRENDING;
         default:
             return TAB_INDEX.TRENDING;
@@ -54,6 +47,17 @@ const MainPage = () => {
     const [searchList, loading, error, fetchList] = useFetch();
     const [page, setPage] = useState(1);
 
+    useEffect(() => {
+        if (searchedMovie === '') {
+            if (history.location.pathname === PATH_NAMES.SEARCH) {
+                setValue(TAB_INDEX.TRENDING);
+                history.push(PATH_NAMES.TRENDING);
+            }
+        } else {
+            fetchList(apiData.searchMovie(searchedMovie, page));
+        }
+    }, [page, fetchList, searchedMovie, history]);
+
     const searchListProps = {
         searchList: searchList,
         loading: loading,
@@ -65,87 +69,57 @@ const MainPage = () => {
         setValue(newValue);
     }
 
-    function inputOnChange(event) {
-        setSearchedMovie(event.target.value);
-        if (event.target.value !== '') {
-            if (value !== TAB_INDEX.SEARCH) setValue(TAB_INDEX.SEARCH);
-            history.push(PATH_NAMES.search);
-        }
-    }
-
-    function inputClean() {
-        setSearchedMovie('');
-    }
-
-    useEffect(() => {
-        if (searchedMovie === '') {
-            if (history.location.pathname === '/search') {
-                setValue(TAB_INDEX.TRENDING);
-                //goback-replace
-                history.push(PATH_NAMES.trending);
-            }
-        } else {
-            fetchList(apiData.searchMovie(searchedMovie, page));
-        }
-    }, [page, fetchList, searchedMovie, history]);
-
     function redirect(path, newIndex) {
-        // if (path === PATH_NAMES.SEARCH) oldValue = value;
         setValue(newIndex);
         return history.push(path);
     }
 
     function defaultTab() {
         const path = history.location.pathname;
-        if (path === '/') return path;
-        return PATH_NAMES.trending;
+        if (path === PATH_NAMES.START) return path;
+        return PATH_NAMES.TRENDING;
     }
 
     return (
         <>
-            <div className={styles.pageHeader}>
-                <h1 className={styles.pageTitle}>Movie DB</h1>
-                <SearchInput onChange={inputOnChange} onCleanClick={inputClean} />
-                <Button className={styles.loginButton}>Login</Button>
-            </div>
-
+            <Header value={value} setValue={setValue} setSearchedMovie={setSearchedMovie} />
             <div className={styles.tabs}>
                 <StyledTabs value={value} onChange={handleChange}>
                     <StyledTab
                         label='Trending'
                         {...a11yProps(TAB_INDEX.TRENDING)}
-                        onClick={() => redirect('/trending', TAB_INDEX.TRENDING)}
+                        onClick={() => redirect(PATH_NAMES.TRENDING, TAB_INDEX.TRENDING)}
                     />
                     <StyledTab
                         label='Popular'
                         {...a11yProps(TAB_INDEX.POPULAR)}
-                        onClick={() => redirect('/popular', TAB_INDEX.POPULAR)}
+                        onClick={() => redirect(PATH_NAMES.POPULAR, TAB_INDEX.POPULAR)}
                     />
                     <StyledTab
                         label='Top Rated'
                         {...a11yProps(TAB_INDEX.TOP_RATED)}
-                        onClick={() => redirect('/top-rated', TAB_INDEX.TOP_RATED)}
+                        onClick={() => redirect(PATH_NAMES.TOP_RATED, TAB_INDEX.TOP_RATED)}
                     />
                     <StyledTab
                         label='Favorites'
                         {...a11yProps(TAB_INDEX.FAVORITES)}
-                        onClick={() => redirect('/favorites', TAB_INDEX.FAVORITES)}
+                        onClick={() => redirect(PATH_NAMES.FAVORITES, TAB_INDEX.FAVORITES)}
                     />
                     <StyledTab
                         label='Search'
                         {...a11yProps(TAB_INDEX.SEARCH)}
                         disabled={searchedMovie === ''}
-                        onClick={() => redirect('/search', TAB_INDEX.SEARCH)}
+                        onClick={() => redirect(PATH_NAMES.SEARCH, TAB_INDEX.SEARCH)}
                     />
                 </StyledTabs>
                 <Typography className={styles.padding} />
                 <div className={styles.tabContent}>
                     <Switch>
                         <Route path={defaultTab()} exact component={Trending} />
-                        <Route path={PATH_NAMES.popular} exact component={Popular} />
-                        <Route path={PATH_NAMES.topRated} exact component={TopRated} />
-                        <Route path={PATH_NAMES.favorites} exact component={Favorites} />
-                        <Route path={PATH_NAMES.search} exact>
+                        <Route path={PATH_NAMES.POPULAR} exact component={Popular} />
+                        <Route path={PATH_NAMES.TOP_RATED} exact component={TopRated} />
+                        <Route path={PATH_NAMES.FAVORITES} exact component={Favorites} />
+                        <Route path={PATH_NAMES.SEARCH} exact>
                             <SearchResults searchListProps={searchListProps} />
                         </Route>
                     </Switch>

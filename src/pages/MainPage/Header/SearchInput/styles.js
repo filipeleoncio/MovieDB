@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        // [theme.breakpoints.up('sm')]: {
-        //     marginLeft: theme.spacing(1),
-        //     width: 'auto',
-        // },
     },
     searchIcon: {
         padding: theme.spacing(0, 1),
@@ -29,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 3,
         position: 'relative',
         alignSelf: 'center',
-        opacity: 0,
         right: 7,
+        opacity: 0,
         transition: '.5s ease-in-out opacity',
     },
     cleanButtonShow: {
@@ -41,12 +37,10 @@ const useStyles = makeStyles((theme) => ({
         color: 'inherit',
     },
     inputInput: {
-        // justifyContent: 'center',
         padding: theme.spacing(1, 1, 1, 1),
         transition: theme.transitions.create('width'),
-        // width: '100%',
         [theme.breakpoints.up('sm')]: {
-            width: '10ch',
+            width: '12ch',
             '&:focus': {
                 width: '17ch',
             },

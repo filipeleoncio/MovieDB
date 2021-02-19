@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     pageHeader: {
         display: 'flex',
         height: 110,
@@ -19,15 +19,6 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1rem',
         fontFamily: 'Serif',
     },
-    tabs: {
-        flexGrow: 1,
-    },
-    tabContent: {
-        padding: '0px 24px',
-    },
-    padding: {
-        padding: theme.spacing(3),
-    },
-}));
+});
 
 export default useStyles;
