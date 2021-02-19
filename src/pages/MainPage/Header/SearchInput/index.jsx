@@ -8,30 +8,14 @@ import clsx from 'clsx';
 
 const SearchInput = ({ onChange, onCleanClick }) => {
     const styles = useStyles();
-    // const [value, setValue] = useState('');
 
     const debounceOnChange = debounce(onChange, 300);
-
-    // const debounceOnChange = useCallback(() => debounce(() => onChange(value), 1000), [onChange]);
-    // const debounceOnChange = useMemo((value) => debounce(() => onChange(value), 1000), [onChange]);
-
-    // function inputOnChange(event) {
-    //     setValue(event.target.value);
-    //     debounceOnChange(event.target.value);
-    // }
-
-    // const onChange = e => {
-    //     setUserQuery(e.target.value);
-    //     delayedQuery(e.target.value);
-    //   };
-    // const delayedQuery = useCallback(() => debounce((q) => sendQuery(q), 500), [sendQuery]);
 
     function getInputValue() {
         return document.getElementById('inputField') ? document.getElementById('inputField').value : '';
     }
 
     function cleanInput() {
-        // setValue('');
         document.getElementById('inputField').value = '';
         onCleanClick();
     }
@@ -44,23 +28,17 @@ const SearchInput = ({ onChange, onCleanClick }) => {
             <InputBase
                 id='inputField'
                 placeholder='Search movie'
-                // onChange={inputOnChange}
                 onChange={debounceOnChange}
                 classes={{
                     root: styles.inputRoot,
                     input: styles.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
-                // value={value}
             />
             <div
                 className={clsx(styles.cleanButton, { [styles.cleanButtonShow]: getInputValue() !== '' })}
-                title={getInputValue() !== '' ? 'Limpar' : null}
+                title={getInputValue() !== '' ? 'Clear' : null}
             >
-                {/* <div
-                className={clsx(styles.cleanButton, { [styles.cleanButtonShow]: value !== '' })}
-                title={value !== '' ? 'Limpar' : null}
-            > */}
                 <CloseIcon onClick={cleanInput} />
             </div>
         </div>
