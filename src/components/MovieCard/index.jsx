@@ -71,14 +71,14 @@ const MovieCard = ({ movie, index, setMinimumLoaded }) => {
                 <div className={styles.inferior}>
                     <div className={styles.nota}>
                         <p>
-                            Nota:
+                            Rate:
                             <span className={styles.inferiorValue}>{movie.vote_average}/10</span>
                         </p>
                         <p>
-                            Total de votos:<span className={styles.inferiorValue}>{movie.vote_count}</span>
+                            Total Votes:<span className={styles.inferiorValue}>{movie.vote_count}</span>
                         </p>
                     </div>
-                    <IconButton onClick={toogleFavorito} title='Favoritar'>
+                    <IconButton onClick={toogleFavorito} title='Favorite'>
                         <StarButton filled={isFilled()} />
                     </IconButton>
                 </div>

@@ -29,7 +29,7 @@ const Favorites = () => {
             })}
         >
             <h1>Favorites</h1>
-            {listaFavoritos.length === 0 && <h3>Lista de Favoritos Vazia</h3>}
+            {listaFavoritos.length === 0 && <h3>Your Favorites List is Empty</h3>}
             <MovieList
                 list={listaFavoritos}
                 intPage={page}

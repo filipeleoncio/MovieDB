@@ -29,7 +29,7 @@ const SearchResults = ({ searchListProps }) => {
             <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: listAllLoaded })}>
                 {!loading && !showError() && (
                     <>
-                        <h1>Filmes Encontrados:</h1>
+                        <h1>Found Movies:</h1>
                         <MovieList
                             list={searchList}
                             extPage={extPage}

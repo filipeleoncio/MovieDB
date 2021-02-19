@@ -38,7 +38,7 @@ const Footer = ({ movie, trailerModalOpen }) => {
             <div className={styles.footer}>
                 <Nota className={styles.nota} movie={movie} />
                 {videoList.length > 0 && (
-                    <Button className={styles.playTrailerButton} onClick={toogleTrailerModal} title='Assistir Trailer'>
+                    <Button className={styles.playTrailerButton} onClick={toogleTrailerModal} title='Watch Trailer'>
                         <PlayArrowIcon className={styles.playTrailerIcon} />
                         <Typography className={styles.playTrailerText}>trailer</Typography>
                     </Button>

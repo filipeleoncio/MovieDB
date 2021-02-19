@@ -44,7 +44,7 @@ const MovieInfo = ({ movie, open, setStatus }) => {
                 <div className={styles.paper}>
                     <img className={styles.image} src={getImage()} alt={`${movie.title || movie.name}_img`} />
                     <div className={styles.info}>
-                        <div className={styles.closeButton} title='Fechar'>
+                        <div className={styles.closeButton} title='Close'>
                             <Button onClick={setStatus}>
                                 <CloseIcon className={styles.iconSize} />
                             </Button>
