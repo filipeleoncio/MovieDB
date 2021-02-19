@@ -1,17 +1,19 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles( {
+const useStyles = makeStyles({
     root: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        widht: '100%',
-        height: '100%',
     },
     icon: {
         fontSize: '5.5rem',
-    }
-} )
+    },
+});
 
 export default useStyles;
