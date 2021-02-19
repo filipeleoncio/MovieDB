@@ -5,12 +5,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import useStyles from './styles';
 
-const SwitchButton = ({ value, setValue, setImagesLoaded }) => {
+const SwitchButton = ({ value, setValue, setImagesLoaded, setMvListAllLoaded, setTvListAllLoaded }) => {
     const styles = useStyles();
 
     function handleChange(event) {
+        const newSelected = event.target.value;
+        if (newSelected === 'movie') setMvListAllLoaded(false);
+        if (newSelected === 'tv') setTvListAllLoaded(false);
         setImagesLoaded(false);
-        setValue(event.target.value);
+        setValue(newSelected);
     }
 
     return (

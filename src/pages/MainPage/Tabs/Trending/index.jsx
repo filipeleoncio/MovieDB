@@ -30,12 +30,6 @@ const Trending = () => {
     }, [fetchMvList, fetchTvList]);
 
     useEffect(() => {
-        if (selected === 'movie') {
-            setMvListAllLoaded(false);
-        }
-        if (selected === 'tv') {
-            setTvListAllLoaded(false);
-        }
         if ((selected === 'movie' && mvListAllLoaded) || (selected === 'tv' && tvListAllLoaded)) {
             firstRender.current = true;
             setImagesLoaded(true);
@@ -62,7 +56,13 @@ const Trending = () => {
                         })}
                     >
                         <h1>Trending</h1>
-                        <SwitchButton value={selected} setValue={setSelected} setImagesLoaded={setImagesLoaded} />
+                        <SwitchButton
+                            value={selected}
+                            setValue={setSelected}
+                            setImagesLoaded={setImagesLoaded}
+                            setMvListAllLoaded={setMvListAllLoaded}
+                            setTvListAllLoaded={setTvListAllLoaded}
+                        />
                     </div>
                     <div className={clsx(styles.smoothComponent, { [styles.smoothComponentLoaded]: imagesLoaded })}>
                         {selected === 'movie' && (
