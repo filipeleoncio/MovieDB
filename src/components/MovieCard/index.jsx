@@ -1,12 +1,24 @@
 import { Card, CardContent, IconButton, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import StarButton from '../StarButton/indes';
+import StarButton from './StarButton';
 import MovieInfo from './MovieInfo';
 import useStyles from './styles';
 import { useDataContext } from './../store/Provider';
-// import Nota from './MovieInfo/Nota';
 
-const MovieCard = ({ movie, setLoadedImages, index, setMinimumLoaded }) => {
+function accepted(_index) {
+    switch (_index) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            return true;
+        default:
+            return false;
+    }
+}
+
+const MovieCard = ({ movie, index, setMinimumLoaded }) => {
     const styles = useStyles();
     const { listaFavoritos, setListaFavoritos } = useDataContext();
     const [openModal, setOpenModal] = useState(false);
@@ -14,25 +26,11 @@ const MovieCard = ({ movie, setLoadedImages, index, setMinimumLoaded }) => {
     const src = baseUrl + backdropSizes + movie.backdrop_path;
     const [imgLoaded, setImgLoaded] = useState(false);
 
-    function accepted(_index) {
-        switch (_index) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     useEffect(() => {
-        if (imgLoaded) {
-            setLoadedImages((prev) => prev + 1);
-            if (accepted(index)) setMinimumLoaded((prev) => prev + 1);
+        if (imgLoaded && accepted(index)) {
+            setMinimumLoaded((prev) => prev + 1);
         }
-    }, [imgLoaded, setLoadedImages, setMinimumLoaded, index]);
+    }, [imgLoaded, setMinimumLoaded, index]);
 
     function toogleFavorito() {
         const favorito = listaFavoritos.some((mov) => mov.id === movie.id);
@@ -80,7 +78,6 @@ const MovieCard = ({ movie, setLoadedImages, index, setMinimumLoaded }) => {
                             Total de votos:<span className={styles.inferiorValue}>{movie.vote_count}</span>
                         </p>
                     </div>
-                    {/* <Nota movie={movie} /> */}
                     <IconButton onClick={toogleFavorito} title='Favoritar'>
                         <StarButton filled={isFilled()} />
                     </IconButton>

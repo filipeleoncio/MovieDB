@@ -8,7 +8,6 @@ const useStyles = makeStyles({
         width: '125px',
     },
     star: {
-        // paddingTop: '11px',
         paddingRight: '3px',
         color: 'gold',
     },
