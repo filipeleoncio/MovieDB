@@ -1,7 +1,5 @@
 import { useState } from 'react';
-
-const LIST_SIZE = 20;
-const MOVIES_PER_STEP = 5;
+import { MOVIES_PER_STEP, LIST_SIZE } from '../utils/listParams';
 
 function useChangePage() {
     const [extPage, setExtPage] = useState(1);

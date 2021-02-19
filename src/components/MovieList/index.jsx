@@ -5,44 +5,25 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { IconButton } from '@material-ui/core';
 import clsx from 'clsx';
-
-// const MOVIES_PER_PAGE = 20;
-const MOVIES_PER_STEP = 5;
-// const MOVIES_RENDER_PER_STEP = 15;
+import { MOVIES_PER_STEP } from '../../utils/listParams';
 
 const MovieList = ({ list, extPage, intPage, changePage, setAllImagesLoaded }) => {
     const styles = useStyles();
-    const [loadedImagesCount, setLoadedImagesCount] = useState(0);
     const [minimumLoaded, setMinimumLoaded] = useState(0);
     const carrouselRef = useRef();
 
-    const condition1 = loadedImagesCount === list.length && list.length > 0;
-    const condition2 = minimumLoaded === 5;
-
-    const result = condition1 || condition2;
+    const condition = minimumLoaded === 5;
 
     useEffect(() => {
-        if (result) {
+        if (condition) {
             setAllImagesLoaded(true);
         }
-    }, [result, list, setAllImagesLoaded]);
-
-    // const listaExibida = useMemo(() => {
-    //     let inicial = page * moviesPorPag;
-    //     let final = page * moviesPorPag + moviesPorPag;
-    //     return list.slice(inicial, final);
-    // }, [page, list]);
+    }, [condition, list, setAllImagesLoaded]);
 
     const MovieCardList = useMemo(
         () =>
             list.map((movie, index) => (
-                <MovieCard
-                    key={index}
-                    index={index}
-                    movie={movie}
-                    setLoadedImages={setLoadedImagesCount}
-                    setMinimumLoaded={setMinimumLoaded}
-                />
+                <MovieCard key={index} index={index} movie={movie} setMinimumLoaded={setMinimumLoaded} />
             )),
         [list],
     );
