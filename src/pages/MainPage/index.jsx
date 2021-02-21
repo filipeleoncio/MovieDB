@@ -1,5 +1,5 @@
-import { Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import Popular from './Tabs/Popular';
 import TopRated from './Tabs/TopRated';
 import Trending from './Tabs/Trending';
@@ -10,10 +10,10 @@ import StyledTabs from './TabManager/StyledTabs';
 import SearchResults from './Tabs/SearchResults';
 import useFetch from '../../hooks/useFetch';
 import apiData from '../../services/apiData';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import Header from './Header';
+import { Typography } from '@material-ui/core';
 import PATH_NAMES from './../../utils/pathNames';
 import TAB_INDEX from '../../utils/tabIndex';
-import Header from './Header';
 
 function a11yProps(index) {
     return {
@@ -76,8 +76,7 @@ const MainPage = () => {
 
     function defaultTab() {
         const path = history.location.pathname;
-        if (path === PATH_NAMES.START) return path;
-        return PATH_NAMES.TRENDING;
+        return path === PATH_NAMES.START ? path : PATH_NAMES.TRENDING;
     }
 
     return (

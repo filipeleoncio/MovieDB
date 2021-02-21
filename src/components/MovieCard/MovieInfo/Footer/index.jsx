@@ -23,8 +23,9 @@ const Footer = ({ movie, trailerModalOpen }) => {
 
     const getTrailerKey = useCallback(() => {
         if (videoList.length > 0) {
-            const videoKey = videoList.find((video) => video.type === 'Trailer').key;
-            return videoKey ? videoKey : videoList[0].key;
+            const trailer = videoList.find((video) => video.type === 'Trailer');
+            return trailer ? trailer.key : videoList[0].key;
+            // return videoKey ? videoKey : videoList[0].key;
         }
         return null;
     }, [videoList]);

@@ -20,7 +20,6 @@ const SearchInput = ({ onChange, onCleanClick }) => {
     // );
 
     function getInputValue() {
-        console.log(inputRef);
         const inputField = inputRef.current;
         return inputField ? inputField.value : '';
     }
