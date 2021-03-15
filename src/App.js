@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import MainPage from './pages/MainPage';
 import './App.css';
 import DataProvider from './components/store/Provider';
-
+//teste
 const App = () => {
     return (
         <BrowserRouter>
